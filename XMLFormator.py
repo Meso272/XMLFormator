@@ -3,17 +3,12 @@ from lxml import etree
 
 def transform(xmlPath, xslPath):
     # read xsl file
-    xslRoot = etree.fromstring(open(xslPath, encoding='utf-8').read())
-
-    transform = etree.XSLT(xslRoot)
-
+    xslRoot = etree.parse(open(xslPath, encoding='utf-8'))
+    transformer = etree.XSLT(xslRoot)
     # read xml
-    xmlRoot = etree.fromstring(open(xmlPath, encoding='utf-8').read())
-
+    xmlRoot = etree.parse(open(xmlPath, encoding='utf-8'))
     # transform xml with xslt
-    transRoot = transform(xmlRoot)
-
-    # return transformation result
+    transRoot = transformer(xmlRoot)
     return etree.tostring(transRoot, encoding='utf-8')
 
 
