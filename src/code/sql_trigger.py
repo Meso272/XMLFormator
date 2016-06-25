@@ -43,7 +43,7 @@ class SQLTrigger:
             vendor_path = row["vendor_path"]
             video_price = row["video_price"]
             video_copyright = row["video_copyright"]
-            xsl_folder = '/home/derc/zhouludong/src/xsl/1'
+            xsl_folder = '../xsl/1'
             xml_trans_path = row["xml_trans_path"]
     
             attribs["VideoPath"] = video_upload_path
