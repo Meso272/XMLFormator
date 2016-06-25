@@ -22,7 +22,7 @@ class xml2Json:
     def batchTransform(self, xmlFolder, jsonFolder):
         if not os.path.exists(jsonFolder):
             os.makedirs(jsonFolder)
-            logging.warning("xml2Json. jsonFolder not exist. The Path is %s, instead I create it\n" % jsonFolder)
+            logging.info("xml2Json. jsonFolder not exist. The Path is %s, instead I create it\n" % jsonFolder)
 
         xml_files = glob.glob(xmlFolder + "/*.xml")
         if len(xml_files) == 0:

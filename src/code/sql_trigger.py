@@ -60,7 +60,7 @@ class SQLTrigger:
                 continue
     
             if not os.path.exists(xml_trans_path):
-                logging.warning("xml trans path: %s not exists, create it" % xml_trans_path)
+                logging.info("xml trans path: %s not exists, create it" % xml_trans_path)
                 os.makedirs(xml_trans_path)
     
             formator_record_fetch_sql = "select * from formator_record where log_id=" + str(log_id);
