@@ -63,11 +63,12 @@ class SQLTrigger:
                 logging.info("xml trans path: %s not exists, create it" % xml_trans_path)
                 os.makedirs(xml_trans_path)
     
-            formator_record_fetch_sql = "select * from formator_record where log_id=" + str(log_id);
+            formator_record_fetch_sql = "select * from formator_record where log_id=%d" % log_id;
             formator_record_fetch_cursor.execute(formator_record_fetch_sql)
     
             if formator_record_fetch_cursor.rowcount == 1:
                 row = formator_record_fetch_cursor.fetchone()
+
                 if row["xml_formated"] != 1:
                     if row["md5"]:
                         attribs["MD5"] = row["md5"]
