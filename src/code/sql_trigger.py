@@ -32,6 +32,7 @@ class SQLTrigger:
             sys.exit(0)
     
         for row in upload_log_cursor:
+            attribs.clear()
             log_id = row["log_id"]
             vendor_name = row["vendor_name"]
             upload_time = row["upload_time"]
