@@ -1,0 +1,589 @@
+<?xml version="1.1"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="Metadata">
+    <xs:complexType>
+      <xs:choice maxOccurs="unbounded">
+        <xs:element minOccurs="0" name="Program">
+          <xs:complexType>
+            <xs:all>
+              <xs:element minOccurs="0" name="Title">
+                <xs:complexType>
+                  <xs:choice maxOccurs="unbounded">
+                    <xs:element minOccurs="0" type="xs:string" name="ProperTitle"/>
+                    <xs:element minOccurs="0" type="xs:string" name="ParallelProperTitle"/>
+                    <xs:element minOccurs="0" type="xs:string" name="SubordinateTitle"/>
+                    <xs:element minOccurs="0" type="xs:string" name="AlternativeProperTitle"/>
+                    <xs:element minOccurs="0" type="xs:string" name="TitleDescription"/>
+                    <xs:element minOccurs="0" name="Series">
+                      <xs:complexType>
+                        <xs:choice maxOccurs="unbounded">
+                          <xs:element minOccurs="0" type="xs:int" name="TotalNumberofEpisodes"/>
+                          <xs:element minOccurs="0" type="xs:string" name="SeriesTitle"/>
+                          <xs:element minOccurs="0" type="xs:int" name="EpisodesNumber"/>
+                          <xs:element minOccurs="0" type="xs:string" name="ParallelSeriesTitle"/>
+                        </xs:choice>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:choice>
+                </xs:complexType>
+              </xs:element>
+              <xs:element minOccurs="0" name="Subject">
+                <xs:complexType>
+                  <xs:choice maxOccurs="unbounded">
+                    <xs:element minOccurs="0" name="Class">
+                      <xs:complexType>
+                        <xs:all>
+                          <xs:element minOccurs="0" type="xs:string" name="Classification"/>
+                          <xs:element minOccurs="0" type="xs:string" name="ClassNumber"/>
+                        </xs:all>
+                      </xs:complexType>
+                    </xs:element>                 
+                    <xs:element minOccurs="0" type="xs:string" name="SubjectTerm"/>
+                    <xs:element minOccurs="0" type="xs:string" name="Keyword"/>
+                  </xs:choice>
+                </xs:complexType>
+              </xs:element>
+              <xs:element minOccurs="0" name="Description">
+                <xs:complexType>
+                  <xs:choice maxOccurs="unbounded">
+                    <xs:element minOccurs="0" type="xs:string" name="Character"/>
+                    <xs:element minOccurs="0" type="xs:string" nillable="true" name="DateofEvent"/>
+                    <xs:element minOccurs="0" type="xs:string" name="DescriptionofContent"/>
+                    <xs:element minOccurs="0" name="Awards">
+                      <xs:complexType>
+                        <xs:choice maxOccurs="unbounded">
+                          <xs:element minOccurs="0" type="xs:string" name="NameofAwards"/>
+                          <xs:element minOccurs="0" type="xs:string" name="ItemofAwards"/>
+                          <xs:element minOccurs="0" type="xs:string" name="WinnersofAwards"/>
+                          <xs:element minOccurs="0" type="xs:int" name="YearorTimeofAwards"/>
+                          <xs:element minOccurs="0" type="xs:string" nillable="true" name="DateofAwards"/>
+                        </xs:choice>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element minOccurs="0" name="Column">
+                      <xs:complexType>
+                        <xs:all>
+                          <xs:element minOccurs="0" type="xs:int" name="IssueNumber"/>
+                          <xs:element minOccurs="0" type="xs:int" name="IssueYear"/>
+                          <xs:element minOccurs="0" type="xs:string" name="ColumnName"/>
+                        </xs:all>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element minOccurs="0" name="AudioChannel">
+                      <xs:complexType>
+                        <xs:all>
+                          <xs:element minOccurs="0" type="xs:string" name="AudioChannelDescription"/>
+                          <xs:element minOccurs="0" type="xs:int" name="AudioChannelNumber"/>
+                        </xs:all>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element minOccurs="0" type="xs:string" name="Audience"/>
+                    <xs:element minOccurs="0" type="xs:string" name="VersionDescription"/>
+                    <xs:element minOccurs="0" type="xs:string" name="AdditionalLogo"/>
+                    <xs:element minOccurs="0" type="xs:string" name="Attachment"/>
+                  </xs:choice>
+                </xs:complexType>
+              </xs:element>
+              <xs:element minOccurs="0" name="Creator">
+                <xs:complexType>
+                  <xs:choice maxOccurs="unbounded">
+                    <xs:element minOccurs="0" name="DescriptionofCreator">
+                      <xs:complexType>
+                        <xs:choice maxOccurs="unbounded">
+                          <xs:element minOccurs="0" type="xs:string" name="NameofCreator"/>
+                          <xs:element minOccurs="0" type="xs:string" name="ParallelNameofCreator"/>
+                          <xs:element minOccurs="0" type="xs:string" name="Role"/>
+                          <xs:element minOccurs="0" type="xs:string" name="OtherInformation"/>
+                        </xs:choice>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:choice>
+                </xs:complexType>
+              </xs:element>
+              <xs:element minOccurs="0" name="Contributor">
+                <xs:complexType >
+                  <xs:choice maxOccurs="unbounded">
+                    <xs:element minOccurs="0" name="DescriptionofContributor">
+                      <xs:complexType>
+                        <xs:choice maxOccurs="unbounded">
+                          <xs:element minOccurs="0" type="xs:string" name="NameofContributor"/>
+                          <xs:element minOccurs="0" type="xs:string" name="ParallelNameofContributor"/>
+                          <xs:element minOccurs="0" type="xs:string" name="Role"/>
+                          <xs:element minOccurs="0" type="xs:string" name="OtherInformation"/>
+                        </xs:choice>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:choice>
+                </xs:complexType>
+              </xs:element>
+              <xs:element minOccurs="0" name="Publisher">
+                <xs:complexType>
+                  <xs:choice maxOccurs="unbounded">
+                    <xs:element minOccurs="0" name="DescriptionofPublisher">
+                      <xs:complexType>
+                        <xs:all minOccurs="0">
+                          <xs:element minOccurs="0" type="xs:string" name="NameofPublisher"/>
+                          <xs:element minOccurs="0" type="xs:string" name="PlaceofPublisher"/>
+                        </xs:all>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element minOccurs="0" name="DescriptionofProducer">
+                      <xs:complexType>
+                        <xs:all minOccurs="0">
+                          <xs:element minOccurs="0" type="xs:string" name="NameofProducer"/>
+                          <xs:element minOccurs="0" type="xs:string" name="PlaceofProduction"/>
+                        </xs:all>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:choice>
+                </xs:complexType>
+              </xs:element>
+              <xs:element minOccurs="0" name="Copyright">
+                <xs:complexType>
+                  <xs:choice maxOccurs="unbounded">
+                    <xs:element minOccurs="0" type="xs:string" name="NameofCopyrightOwner"/>
+                    <xs:element minOccurs="0" type="xs:string" name="CopyrightStatement"/>
+                    <xs:element minOccurs="0" name="DescriptionofAuthorizedUse">
+                      <xs:complexType>
+                        <xs:all minOccurs="0">
+                          <xs:element minOccurs="0" type="xs:string" name="NameofAuthorizedUser"/>
+                          <xs:element minOccurs="0" type="xs:string" name="AuthorizedWayofUsage"/>
+                          <xs:element minOccurs="0" type="xs:string" name="AuthorizedDateofStart"/>
+                          <xs:element minOccurs="0" type="xs:string" name="AuthorizedDeadline"/>
+                          <xs:element minOccurs="0" type="xs:string" name="AuthorizedGeographicArea"/>
+                          <xs:element minOccurs="0" type="xs:int" name="TimesofAuthorizedUsage"/>
+                          <xs:element minOccurs="0" type="xs:string" name="OtherInformation"/>
+                        </xs:all>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:choice>
+                </xs:complexType>
+              </xs:element>
+              <xs:element minOccurs="0" name="Language">
+                <xs:complexType>
+                  <xs:choice minOccurs="0" maxOccurs="unbounded">
+                    <xs:element minOccurs="0" name="AudioChannel">
+                      <xs:complexType>
+                        <xs:all>
+                          <xs:element minOccurs="0" type="xs:int" name="AudioChannelNumber"/>
+                          <xs:element minOccurs="0" type="xs:string" name="AudioChannelLanguage"/>
+                        </xs:all>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element minOccurs="0" name="Subtitle">
+                      <xs:complexType>
+                        <xs:all>
+                          <xs:element minOccurs="0" type="xs:int" name="SubtitleNumber"/>
+                          <xs:element minOccurs="0" type="xs:string" name="SubtitleLanguage"/>
+                        </xs:all>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:choice>
+                </xs:complexType>
+              </xs:element>
+              <xs:element minOccurs="0" name="Date">
+                <xs:complexType>
+                  <xs:all>
+                    <xs:element minOccurs="0" type="xs:string" nillable="true" name="ProducedDate"/>
+                    <xs:element minOccurs="0" type="xs:string" nillable="true" name="DateofDebut"/>
+                    <xs:element minOccurs="0" type="xs:string" nillable="true" name="PublishedDate"/>
+                  </xs:all>
+                </xs:complexType>
+              </xs:element>
+              <xs:element minOccurs="0" name="Type">
+                <xs:complexType>
+                  <xs:choice maxOccurs="unbounded">
+                    <xs:element minOccurs="0" type="xs:string" name="ProgramType"/>
+                    <xs:element minOccurs="0" type="xs:string" name="ProgramForm"/>
+                  </xs:choice>
+                </xs:complexType>
+              </xs:element>
+              <xs:element minOccurs="0" name="Format">
+                <xs:complexType>
+                  <xs:all>
+                    <xs:element minOccurs="0" type="xs:string" name="SubtitleForm"/>
+                    <xs:element minOccurs="0" type="xs:string" name="FileFormat"/>
+                    <xs:element minOccurs="0" type="xs:string" name="Duration"/>
+                    <xs:element minOccurs="0" type="xs:string" name="PhysicalMediaType"/>
+                    <xs:element minOccurs="0" type="xs:string" name="AudioQuality"/>
+                    <xs:element minOccurs="0" type="xs:string" name="VideoSamplingFrequency"/>
+                    <xs:element minOccurs="0" type="xs:string" name="System"/>
+                    <xs:element minOccurs="0" type="xs:string" name="AudioSamplingFrequency"/>
+                    <xs:element minOccurs="0" type="xs:string" name="VideoCodingFormat"/>
+                    <xs:element minOccurs="0" type="xs:string" name="AspectRatio"/>
+                    <xs:element minOccurs="0" type="xs:string" name="StartingPoint"/>
+                    <xs:element minOccurs="0" type="xs:string" name="VideoBitrate"/>
+                    <xs:element minOccurs="0" type="xs:string" name="VideoSamplingType"/>
+                    <xs:element minOccurs="0" type="xs:string" name="AudioChannelFormat"/>
+                    <xs:element minOccurs="0" type="xs:string" name="AudioDataRate"/>
+                    <xs:element minOccurs="0" type="xs:string" name="Color"/>
+                    <xs:element minOccurs="0" type="xs:string" name="VideoQuality"/>
+                    <xs:element minOccurs="0" type="xs:string" name="AudioBitDepth"/>
+                    <xs:element minOccurs="0" type="xs:string" name="AudioCodingFormat"/>
+                  </xs:all>
+                </xs:complexType>
+              </xs:element>
+              <xs:element minOccurs="0" name="Identifier">
+                <xs:complexType>
+                  <xs:all>
+                    <xs:element minOccurs="0" type="xs:string" name="ISRC"/>
+                    <xs:element minOccurs="0" type="xs:string" name="RelationsID"/>
+                  </xs:all>
+                </xs:complexType>
+              </xs:element>
+              <xs:element minOccurs="0" name="Coverage">
+                <xs:complexType>
+                  <xs:choice maxOccurs="unbounded">
+                    <xs:element minOccurs="0" name="YearsCovered">
+                      <xs:complexType>
+                        <xs:all>
+                          <xs:element minOccurs="0" type="xs:int" name="YearofStart"/>
+                          <xs:element minOccurs="0" type="xs:int" name="YearofEnd"/>
+                          <xs:element minOccurs="0" type="xs:string" name="DescriptionofYearsCovered"/>
+                        </xs:all>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element minOccurs="0" type="xs:string" name="Spatial"/>
+                  </xs:choice>
+                </xs:complexType>
+              </xs:element>
+              <xs:element minOccurs="0" name="Source">
+                <xs:complexType>
+                  <xs:all>
+                    <xs:element minOccurs="0" type="xs:string" name="SourceProvider"/>
+                    <xs:element minOccurs="0" type="xs:string" name="AcquiringMethodofSource"/>
+                  </xs:all>
+                </xs:complexType>
+              </xs:element>
+              <xs:element minOccurs="0" name="Relation">
+                <xs:complexType>
+                  <xs:choice maxOccurs="unbounded">
+                    <xs:element minOccurs="0" type="xs:string" name="IsReplacedby"/>
+                    <xs:element minOccurs="0" type="xs:string" name="IsPartof"/>
+                    <xs:element minOccurs="0" type="xs:string" name="PartofSeries"/>
+                    <xs:element minOccurs="0" type="xs:string" name="Replaces"/>
+                    <xs:element minOccurs="0" type="xs:string" name="HasPart"/>
+                    <xs:element minOccurs="0" type="xs:string" name="References"/>
+                    <xs:element minOccurs="0" type="xs:string" name="IsReferencedby"/>
+                    <xs:element minOccurs="0" type="xs:string" name="Requires"/>
+                    <xs:element minOccurs="0" type="xs:string" name="IsRequiredby"/>
+                    <xs:element minOccurs="0" type="xs:string" name="IsVersionof"/>
+                    <xs:element minOccurs="0" type="xs:string" name="HasVersionof"/>
+                  </xs:choice>
+                </xs:complexType>
+              </xs:element>
+            </xs:all>
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" name="Sequence">
+          <xs:complexType>
+            <xs:choice maxOccurs="unbounded">
+              <xs:element minOccurs="0" name="Title">
+                <xs:complexType>
+                  <xs:choice maxOccurs="unbounded">
+                    <xs:element minOccurs="0" type="xs:string" name="ProperTitle"/>
+                    <xs:element minOccurs="0" type="xs:string" name="SeriesTitle"/>
+                    <xs:element minOccurs="0" type="xs:string" name="ParallelProperTitle"/>
+                  </xs:choice>
+                </xs:complexType>
+              </xs:element>
+              <xs:element minOccurs="0" name="Subject">
+                <xs:complexType>
+                  <xs:choice maxOccurs="unbounded">
+                    <xs:element minOccurs="0" name="Class">
+                      <xs:complexType>
+                        <xs:all>
+                          <xs:element minOccurs="0" type="xs:string" name="Classification"/>
+                          <xs:element minOccurs="0" type="xs:string" name="ClassNumber"/>
+                        </xs:all>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element minOccurs="0" type="xs:string" name="SubjectTerm"/>
+                    <xs:element minOccurs="0" type="xs:string" name="Keyword"/>
+                  </xs:choice>
+                </xs:complexType>
+              </xs:element>
+              <xs:element minOccurs="0" name="Description">
+                <xs:complexType>
+                  <xs:choice maxOccurs="unbounded">
+                    <xs:element minOccurs="0" type="xs:string" name="DescriptionofContent"/>
+                    <xs:element minOccurs="0" type="xs:string" name="DateofEvent"/>
+                    <xs:element minOccurs="0" name="Awards">
+                      <xs:complexType>
+                        <xs:all>
+                          <xs:element minOccurs="0" type="xs:string" name="NameofAwards"/>
+                          <xs:element minOccurs="0" type="xs:string" name="ItemofAwards"/>
+                          <xs:element minOccurs="0" type="xs:string" name="WinnnersofAwards"/>
+                          <xs:element minOccurs="0" type="xs:int" name="YearorTimeofAwards"/>
+                          <xs:element minOccurs="0" type="xs:string" nillable="true" name="DateofAwards"/>
+                        </xs:all>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element minOccurs="0" type="xs:string" name="NaturalSound"/>
+                  </xs:choice>
+                </xs:complexType>
+              </xs:element>
+              <xs:element minOccurs="0" name="Creator">
+                <xs:complexType>
+                  <xs:choice maxOccurs="unbounded">
+                    <xs:element minOccurs="0" name="DescriptionofCreator">
+                      <xs:complexType>
+                        <xs:choice maxOccurs="unbounded">
+                          <xs:element minOccurs="0" type="xs:string" name="NameofCreator"/>
+                          <xs:element minOccurs="0" type="xs:string" name="ParallelNameofCreator"/>
+                          <xs:element minOccurs="0" type="xs:string" name="Role"/>
+                          <xs:element minOccurs="0" type="xs:string" name="OtherInformation"/>
+                        </xs:choice>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:choice>
+                </xs:complexType>
+              </xs:element>
+              <xs:element minOccurs="0" name="Contributor">
+                <xs:complexType >
+                  <xs:choice maxOccurs="unbounded">
+                    <xs:element minOccurs="0" name="DescriptionofContributor">
+                      <xs:complexType>
+                        <xs:choice maxOccurs="unbounded">
+                          <xs:element minOccurs="0" type="xs:string" name="NameofContributor"/>
+                          <xs:element minOccurs="0" type="xs:string" name="ParallelNameofContributor"/>
+                          <xs:element minOccurs="0" type="xs:string" name="Role"/>
+                          <xs:element minOccurs="0" type="xs:string" name="OtherInformation"/>
+                        </xs:choice>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:choice>
+                </xs:complexType>
+              </xs:element>
+              <xs:element minOccurs="0" name="Publisher">
+                <xs:complexType>
+                  <xs:choice maxOccurs="unbounded">
+                    <xs:element minOccurs="0" name="DescriptionofPublisher">
+                      <xs:complexType>
+                        <xs:all minOccurs="0">
+                          <xs:element minOccurs="0" type="xs:string" name="NameofPublisher"/>
+                          <xs:element minOccurs="0" type="xs:string" name="PlaceofPublisher"/>
+                        </xs:all>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element minOccurs="0" name="DescriptionofProducer">
+                      <xs:complexType>
+                        <xs:all minOccurs="0">
+                          <xs:element minOccurs="0" type="xs:string" name="NameofProducer"/>
+                          <xs:element minOccurs="0" type="xs:string" name="PlaceofProduction"/>
+                        </xs:all>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:choice>
+                </xs:complexType>
+              </xs:element>
+              <xs:element minOccurs="0" name="Copyright">
+                <xs:complexType>
+                  <xs:choice maxOccurs="unbounded">
+                    <xs:element minOccurs="0" type="xs:string" name="NameofCopyrightOwner"/>
+                    <xs:element minOccurs="0" type="xs:string" name="CopyrightStatement"/>
+                    <xs:element minOccurs="0" name="DescriptionofAuthorizedUse">
+                      <xs:complexType>
+                        <xs:all minOccurs="0">
+                          <xs:element minOccurs="0" type="xs:string" name="NameofAuthorizedUser"/>
+                          <xs:element minOccurs="0" type="xs:string" name="AuthorizedWayofUsage"/>
+                          <xs:element minOccurs="0" type="xs:string" name="AuthorizedDateofStart"/>
+                          <xs:element minOccurs="0" type="xs:string" name="AuthorizedDeadline"/>
+                          <xs:element minOccurs="0" type="xs:string" name="AuthorizedGeographicArea"/>
+                          <xs:element minOccurs="0" type="xs:int" name="TimesofAuthorizedUsage"/>
+                          <xs:element minOccurs="0" type="xs:string" name="OtherInformation"/>
+                        </xs:all>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:choice>
+                </xs:complexType>
+              </xs:element>
+              <xs:element minOccurs="0" name="Language">
+                <xs:complexType>
+                  <xs:choice maxOccurs="unbounded">
+                    <xs:element minOccurs="0" name="AudioChannel">
+                      <xs:complexType>
+                        <xs:all>
+                          <xs:element minOccurs="0" type="xs:int" name="AudioChannelNumber"/>
+                          <xs:element minOccurs="0" type="xs:string" name="AudioChannelLanguage"/>
+                        </xs:all>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element minOccurs="0" name="Subtitle">
+                      <xs:complexType>
+                        <xs:all>
+                          <xs:element minOccurs="0" type="xs:int" name="SubtitleNumber"/>
+                          <xs:element minOccurs="0" type="xs:string" name="SubtitleLanguage"/>
+                        </xs:all>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:choice>
+                </xs:complexType>
+              </xs:element>
+              <xs:element minOccurs="0" name="Type">
+                <xs:complexType>
+                  <xs:choice maxOccurs="unbounded">
+                    <xs:element minOccurs="0" type="xs:string" name="ProgramForm"/>
+                  </xs:choice>
+                </xs:complexType>
+              </xs:element>
+              <xs:element minOccurs="0" name="Format">
+                <xs:complexType>
+                  <xs:all>
+                    <xs:element minOccurs="0" type="xs:string" name="SubtitleForm"/>
+                    <xs:element minOccurs="0" type="xs:string" name="StartingPoint"/>
+                    <xs:element minOccurs="0" type="xs:string" name="Duration"/>
+                  </xs:all>
+                </xs:complexType>
+              </xs:element>
+              <xs:element minOccurs="0" name="Identifier">
+                <xs:complexType>
+                  <xs:all>
+                    <xs:element minOccurs="0" type="xs:string" name="ISRC"/>
+                    <xs:element minOccurs="0" type="xs:string" name="RelationsID"/>
+                  </xs:all>
+                </xs:complexType>
+              </xs:element>
+              <xs:element minOccurs="0" name="Coverage">
+                <xs:complexType>
+                  <xs:choice maxOccurs="unbounded">
+                    <xs:element minOccurs="0" type="xs:string" name="Spatial"/>
+                    <xs:element minOccurs="0" name="YearsCovered">
+                      <xs:complexType>
+                        <xs:all>
+                          <xs:element minOccurs="0" type="xs:string" name="DescriptionofYearsCovered"/>
+                          <xs:element minOccurs="0" type="xs:int" name="YearofEnd"/>
+                          <xs:element minOccurs="0" type="xs:int" name="YearofStart"/>
+                        </xs:all>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:choice>
+                </xs:complexType>
+              </xs:element>
+              <xs:element minOccurs="0" name="Source">
+                <xs:complexType>
+                  <xs:all>
+                    <xs:element minOccurs="0" type="xs:string" name="SourceProvider"/>
+                    <xs:element minOccurs="0" type="xs:string" name="SourceAcquiredMethod"/>
+                  </xs:all>
+                </xs:complexType>
+              </xs:element>
+              <xs:element minOccurs="0" name="Relation">
+                <xs:complexType>
+                  <xs:choice maxOccurs="unbounded">
+                    <xs:element minOccurs="0" type="xs:string" name="IsPartof"/>
+                    <xs:element minOccurs="0" type="xs:string" name="References"/>
+                  </xs:choice>
+                </xs:complexType>
+              </xs:element>
+            </xs:choice>
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" name="Scene">
+          <xs:complexType>
+            <xs:choice maxOccurs="unbounded">
+              <xs:element minOccurs="0" name="Title">
+                <xs:complexType>
+                  <xs:all>
+                    <xs:element minOccurs="0" type="xs:string" name="SceneTitle"/>
+                  </xs:all>
+                </xs:complexType>
+              </xs:element>
+              <xs:element minOccurs="0" name="Subject">
+                <xs:complexType>
+                  <xs:choice maxOccurs="unbounded">
+                    <xs:element minOccurs="0" type="xs:string" name="SubjectTerm"/>
+                    <xs:element minOccurs="0" type="xs:string" name="Keyword"/>
+                  </xs:choice>
+                </xs:complexType>
+              </xs:element>
+              <xs:element minOccurs="0" name="Description">
+                <xs:complexType>
+                  <xs:all>
+                    <xs:element minOccurs="0" type="xs:string" name="DescriptionofContent"/>
+                    <xs:element minOccurs="0" type="xs:string" nillable="true" name="DateofEvent"/>
+                    <xs:element minOccurs="0" type="xs:string" name="NaturalSound"/>
+                  </xs:all>
+                </xs:complexType>
+              </xs:element>
+              <xs:element minOccurs="0" name="Format">
+                <xs:complexType>
+                  <xs:all>
+                    <xs:element minOccurs="0" type="xs:string" name="Duration"/>
+                    <xs:element minOccurs="0" type="xs:string" name="StartingPoint"/>
+                    <xs:element minOccurs="0" type="xs:string" name="SubtitleForm"/>
+                  </xs:all>
+                </xs:complexType>
+              </xs:element>
+              <xs:element minOccurs="0" name="Relation">
+                <xs:complexType>
+                  <xs:choice maxOccurs="unbounded">
+                    <xs:element minOccurs="0" type="xs:string" name="IsPartof"/>
+                    <xs:element minOccurs="0" type="xs:string" name="References"/>
+                  </xs:choice>
+                </xs:complexType>
+              </xs:element>
+            </xs:choice>
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" name="Shot">
+          <xs:complexType>
+            <xs:all>
+              <xs:element minOccurs="0" name="Title">
+                <xs:complexType>
+                  <xs:all>
+                    <xs:element minOccurs="0" type="xs:string" name="ShotTitle"/>
+                  </xs:all>
+                </xs:complexType>
+              </xs:element>
+              <xs:element minOccurs="0" name="Subject">
+                <xs:complexType>
+                  <xs:choice maxOccurs="unbounded">
+                    <xs:element minOccurs="0" type="xs:string" name="SubjectTerm"/>
+                    <xs:element minOccurs="0" type="xs:string" name="Keyword"/>
+                  </xs:choice>
+                </xs:complexType>
+              </xs:element>
+              <xs:element minOccurs="0" name="Description">
+                <xs:complexType>
+                  <xs:choice maxOccurs="unbounded">
+                    <xs:element minOccurs="0" type="xs:string" name="DescriptionofContent"/>
+                    <xs:element minOccurs="0" type="xs:string" name="ShootingPlace"/>
+                    <xs:element minOccurs="0" type="xs:string" name="CameraMotion"/>
+                    <xs:element minOccurs="0" type="xs:string" name="SceneRange"/>
+                    <xs:element minOccurs="0" type="xs:string" name="CameraAngle"/>
+                    <xs:element minOccurs="0" type="xs:string" name="NaturalSound"/>
+                  </xs:choice>
+                </xs:complexType>
+              </xs:element>
+              <xs:element minOccurs="0" name="Date">
+                <xs:complexType>
+                  <xs:all>
+                    <xs:element minOccurs="0" type="xs:string" nillable="true" name="ShootingDate"/>
+                  </xs:all>
+                </xs:complexType>
+              </xs:element>
+              <xs:element minOccurs="0" name="Format">
+                <xs:complexType>
+                  <xs:all>
+                    <xs:element minOccurs="0" type="xs:string" name="Duration"/>
+                    <xs:element minOccurs="0" type="xs:string" name="StartingPoint"/>
+                  </xs:all>
+                </xs:complexType>
+              </xs:element>
+              <xs:element minOccurs="0" name="Relation">
+                <xs:complexType>
+                  <xs:choice maxOccurs="unbounded">
+                    <xs:element minOccurs="0" type="xs:string" name="IsPartof"/>
+                    <xs:element minOccurs="0" type="xs:string" name="References"/>
+                  </xs:choice>
+                </xs:complexType>
+              </xs:element>
+            </xs:all>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+      <xs:attribute name="VideoPath" type="xs:string"/>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
