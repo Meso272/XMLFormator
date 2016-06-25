@@ -69,6 +69,7 @@ class SQLTrigger:
             if formator_record_fetch_cursor.rowcount == 1:
                 row = formator_record_fetch_cursor.fetchone()
                 if row["xml_formated"] != 1:
+                    logging.warning("found one in formator_record")
                     if row["md5"]:
                         attribs["MD5"] = row["md5"]
                     if row["thumbnail"]:
@@ -79,12 +80,10 @@ class SQLTrigger:
                     continue
     
             media_convertor = MediaConvertor(xml_upload_path, xsl_folder, video_upload_path, xml_trans_path, attribs)
-            [MD5, thumbnail_path, keyframes_folde] = media_convertor.convert()
+            [MD5, thumbnail_path, keyframes_folder] = media_convertor.convert()
     
-            formator_record_insert_sql = "insert into formator_record (md5, thumbnail, keyframe, log_id, xml_formated)" \
-                                         " values ('%s', '%s', '%s', '%s', '%d')" %(MD5, thumbnail_path, keyframes_folde, log_id, 1)
+            formator_record_insert_sql = "insert into formator_record (md5, thumbnail, keyframe, log_id, xml_formated) values ('%s', '%s', '%s', %d, %d)" % (MD5, thumbnail_path, keyframes_folder, int(log_id), 1)
             formator_record_insert_cursor.execute(formator_record_insert_sql)
-    
-        upload_log_cursor.close()
-        formator_record_fetch_cursor.close()
-        formator_record_insert_cursor.close()
+            db.commit()
+
+        db.close()
