@@ -69,7 +69,6 @@ class SQLTrigger:
             if formator_record_fetch_cursor.rowcount == 1:
                 row = formator_record_fetch_cursor.fetchone()
                 if row["xml_formated"] != 1:
-                    logging.warning("found one in formator_record")
                     if row["md5"]:
                         attribs["MD5"] = row["md5"]
                     if row["thumbnail"]:
