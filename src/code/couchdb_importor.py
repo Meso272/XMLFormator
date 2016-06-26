@@ -1,4 +1,5 @@
-import couchdb, json, os, logging
+import couchdb, json, os, logging, MySQLdb, sys
+from _mysql_exceptions import *
 
 
 """
@@ -33,9 +34,12 @@ class Importor:
         elif fileClass.startswith('Shot'):
             self.dbshot.save(json_string)
 
-    def batchImport(self):
+    def batchImport(self, json_folder=""):
         if not self.connected:
             return 1
+        if json_folder != "":
+            self.folderPath = json_folder
+
         files = os.listdir(self.folderPath)
         for filename in files:
             path = os.path.join(self.folderPath, filename)
@@ -56,7 +60,47 @@ class Importor:
                 self.batchImport(path)
         return 0
 
+class Uploader:
+    def __init__(self, sql_server="localhost", user="root", passwd="pkulky201", sql_db="formator_record", couch_server="192.168.1.106"):
+        self.sql_server = sql_server
+        self.sql_db = sql_db
+        self.couch_server = couch_server
+        self.user = user
+        self.passwd = passwd
+        self.charset = "utf8"
+        self.importor = Importor()
+
+    def run(self):
+        try:
+            db = MySQLdb.connect(host=self.sql_server, user=self.user, passwd=self.passwd, charset=self.charset, db=self.sql_db)
+        except OperationalError:
+            logging.error("can't connect to mysql")
+            sys.exit(1)
+
+        formator_record_fetch_cursor = db.cursor(MySQLdb.cursors.DictCursor)
+        formator_record_insert_cursor = db.cursor()
+
+        sql = "select * from formator_record where json_uploaded=%d" % 0
+        formator_record_fetch_cursor.execute(sql)
+        formator_record_fetch_cursor.fetchall()
+        if formator_record_fetch_cursor.rowcount == 0:
+            logging.info("There is no record found to upload")
+            sys.exit(0)
+
+        for row in formator_record_fetch_cursor:
+            id = row["id"]
+            json = row["json"]
+
+            if 0 != self.importor.batchImport(json):
+                logging.warning("failed to upload json file in %s" % json)
+                continue
+
+            formator_record_insert_sql = "update formator_record set json_uploaded=1 where id=%d" % int(id)
+            formator_record_insert_cursor.execute(formator_record_insert_sql)
+            db.commit()
+        db.close()
+
 
 if __name__ == '__main__':
-    importor = Importor()
-    importor.batchImport('/home/derc/media_converting/result')
+    uploader = Uploader()
+    uploader.run()
