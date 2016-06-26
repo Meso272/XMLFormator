@@ -66,11 +66,13 @@ class SQLTrigger:
     
             formator_record_fetch_sql = "select * from formator_record where log_id=%d" % log_id;
             formator_record_fetch_cursor.execute(formator_record_fetch_sql)
-    
+
+            need_update = False
             if formator_record_fetch_cursor.rowcount == 1:
                 row = formator_record_fetch_cursor.fetchone()
 
                 if row["xml_formated"] != 1:
+                    need_update = True
                     if row["md5"]:
                         attribs["MD5"] = row["md5"]
                     if row["thumbnail"]:
@@ -85,6 +87,8 @@ class SQLTrigger:
 
             json_path = xml_trans_path + '/json'
             formator_record_insert_sql = "insert into formator_record (md5, thumbnail, keyframe, log_id, xml_formated, json, json_uploaded) values ('%s', '%s', '%s', %d, %d, '%s', %d)" % (MD5, thumbnail_path, keyframes_folder, int(log_id), 1, json_path, 0)
+            if need_update:
+                formator_record_insert_sql = "update formator_record set xml_formated=1 where log_id=%d" % int(log_id)
             formator_record_insert_cursor.execute(formator_record_insert_sql)
             db.commit()
 
