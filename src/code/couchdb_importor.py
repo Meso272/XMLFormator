@@ -59,4 +59,4 @@ class Importor:
 
 if __name__ == '__main__':
     importor = Importor()
-    importor.batchImport('/home/derc/zhouludong/result')
+    importor.batchImport('/home/derc/media_converting/result')
