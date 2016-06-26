@@ -82,8 +82,9 @@ class SQLTrigger:
     
             media_convertor = MediaConvertor(xml_upload_path, xsl_folder, video_upload_path, xml_trans_path, attribs)
             [MD5, thumbnail_path, keyframes_folder] = media_convertor.convert()
-    
-            formator_record_insert_sql = "insert into formator_record (md5, thumbnail, keyframe, log_id, xml_formated) values ('%s', '%s', '%s', %d, %d)" % (MD5, thumbnail_path, keyframes_folder, int(log_id), 1)
+
+            json_path = xml_trans_path + '/json'
+            formator_record_insert_sql = "insert into formator_record (md5, thumbnail, keyframe, log_id, xml_formated, json, json_uploaded) values ('%s', '%s', '%s', %d, %d, '%s', %d)" % (MD5, thumbnail_path, keyframes_folder, int(log_id), 1, json_path, 0)
             formator_record_insert_cursor.execute(formator_record_insert_sql)
             db.commit()
 

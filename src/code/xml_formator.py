@@ -171,20 +171,17 @@ class XMLFormator:
     def __split_xml__(self):
         root = etree.fromstring(self.all_xml.encode("utf-8"))
 
-        ID = root.attrib['VideoID']
-        VideoPath = root.attrib['VideoPath']
-        VendorPath = root.attrib['VendorPath']
-        VendorName = root.attrib['VendorName']
         j = 0
         visited = set()
         ans = dict()
 
         for child in root:
             newroot = etree.Element("Metadata")
-            newroot.set('ParentID', ID)
-            newroot.set('VideoPath', VideoPath)
-            newroot.set('VendorPath', VendorPath)
-            newroot.set('VendorName', VendorName)
+            for key in root.attrib:
+                if key == "VideoID":
+                    newroot.set("ParentID", root.attrib[key])
+                else:
+                    newroot.set(key, root.attrib[key])
             newroot.append(child)
             if child.tag not in visited:
                 visited.add(child.tag)
