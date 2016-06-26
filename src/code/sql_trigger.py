@@ -76,7 +76,7 @@ class SQLTrigger:
                     if row["thumbnail"]:
                         attribs["Thumbnail"] = row["thumbnail"]
                     if row["keyframe"]:
-                        attribs["Thumbnail"] = row["keyframe"]
+                        attribs["Keyframes"] = row["keyframe"]
                 else:
                     continue
     
