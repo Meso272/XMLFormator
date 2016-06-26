@@ -1,4 +1,5 @@
 from sql_trigger import SQLTrigger
+from couchdb_import.py import Uploader
 import argparse, logging
 
 if __name__ == "__main__":
@@ -12,3 +13,6 @@ if __name__ == "__main__":
     args = parser.parse_args()
     sql_trigger = SQLTrigger(host=args.server, user=args.user, passwd=args.passwd, db=args.database)
     sql_trigger.run()
+
+    uploader = Uploader()
+    uploader.run()
