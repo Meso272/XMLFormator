@@ -23,16 +23,17 @@ class Importor:
         self.folderPath = folderPath
 
     def importFile(self, json_string, fileClass):  # 将单个文件导入couchdb, filePath为文件路径
+        json_file = json.loads(json_string)
         if fileClass.startswith('Video'):
-            self.dbvideo.save(json_string)
+            self.dbvideo.save(json_file)
         elif fileClass.startswith('Program'):
-            self.dbprogram.save(json_string)
+            self.dbprogram.save(json_file)
         elif fileClass.startswith('Sequence'):
-            self.dbsequence.save(json_string)
+            self.dbsequence.save(json_file)
         elif fileClass.startswith('Scene'):
-            self.dbscene.save(json_string)
+            self.dbscene.save(json_file)
         elif fileClass.startswith('Shot'):
-            self.dbshot.save(json_string)
+            self.dbshot.save(json_file)
 
     def batchImport(self, json_folder=""):
         if not self.connected:
@@ -61,14 +62,14 @@ class Importor:
         return 0
 
 class Uploader:
-    def __init__(self, sql_server="localhost", user="root", passwd="pkulky201", sql_db="formator_record", couch_server="192.168.1.106"):
+    def __init__(self, sql_server="localhost", user="root", passwd="pkulky201", sql_db="upload_log", couch_server="192.168.1.106"):
         self.sql_server = sql_server
         self.sql_db = sql_db
         self.couch_server = couch_server
         self.user = user
         self.passwd = passwd
         self.charset = "utf8"
-        self.importor = Importor()
+        self.importor = Importor(couch_server)
 
     def run(self):
         try:
@@ -76,7 +77,6 @@ class Uploader:
         except OperationalError:
             logging.error("can't connect to mysql")
             sys.exit(1)
-
         formator_record_fetch_cursor = db.cursor(MySQLdb.cursors.DictCursor)
         formator_record_insert_cursor = db.cursor()
 
