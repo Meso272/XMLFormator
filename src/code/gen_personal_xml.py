@@ -59,8 +59,11 @@ class PersonalXMLGenerator:
                          "</Format>" \
                          "<Description>" \
                          "<DescriptionofContent>%s</DescriptionofContent>" \
-                         "</Description>" % (video_path, title, keywords, produced_time, duration, format, brief)
-
+                         "</Description>" \
+                         "</Program></Metadata>" % (video_path, title, keywords, produced_time, duration, format, brief)
+            print(xml_string)
+            print("-------------------------------------------")
+            continue
             xml_path = "/home/derc/media_converting/personal_xml/"+title+'_'+duration+'.'+format
             with open(xml_path, 'w+', encoding='utf-8') as outFile:
                 outFile.write(xml_string)
@@ -81,3 +84,7 @@ class PersonalXMLGenerator:
             db.commit()
 
         db.close()
+
+if __name__ == "__main__":
+    generator = PersonalXMLGenerator()
+    generator.generate()
