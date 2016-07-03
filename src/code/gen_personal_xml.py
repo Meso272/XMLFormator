@@ -1,5 +1,6 @@
 import MySQLdb, logging, sys, time, datetime
-from  _mysql_exceptions import *
+from _mysql_exceptions import *
+from lxml import etree
 
 class PersonalXMLGenerator:
     def __init__(self, host="192.168.1.106", user="root", passwd="pkulky201", db="tps"):
@@ -61,8 +62,8 @@ class PersonalXMLGenerator:
                          "<DescriptionofContent>%s</DescriptionofContent>" \
                          "</Description>" \
                          "</Program></Metadata>" % (video_path, title, keywords, produced_time, duration, format, brief)
-            print(xml_string)
-            print("-------------------------------------------")
+            xml_root = etree.fromstring(xml_string)
+            xml_string = etree.tostring(xml_root, encoding='utf-8', pretty_print=True, xml_declaration=True)
             continue
             xml_path = "/home/derc/media_converting/personal_xml/"+title+'_'+duration+'.'+format
             with open(xml_path, 'w+', encoding='utf-8') as outFile:
@@ -78,6 +79,8 @@ class PersonalXMLGenerator:
                          " xml_trans_path, video_upload_path, video_cut_path, frame_extract_path, vendor_path," \
                          " video_price, video_copyright) values ('%s', NOW(), 'Admin', '%s', '%s', '%s', '%s', '%s', '%s', %d, '%s')" % (vendor_name, xml_path, xml_trans_path, video_path, video_cut_path, frame_extract_path, vendor_path, price, copyright)
             update_sql = "update upload_media_info set xml_formated=1 where id=%d" % id
+            print(insert_sql, '\n', update_sql)
+            continue
 
             personal_upload_insertor.execute(update_sql)
             personal_xml_insertor.execute(insert_sql)
