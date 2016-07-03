@@ -10,9 +10,12 @@ if __name__ == "__main__":
     parser.add_argument("-p", "--passwd", help="mysql password", default="pkulky201")
     parser.add_argument("-db", "--database", help="database name", default="upload_log")
 
+    parser.add_argument("--media", help="only process media info. don't upload to couchdb", default=False)
+
     args = parser.parse_args()
     sql_trigger = SQLTrigger(host=args.server, user=args.user, passwd=args.passwd, db=args.database)
     sql_trigger.run()
 
-    uploader = Uploader()
-    uploader.run()
+    if not args.media:
+        uploader = Uploader()
+        uploader.run()
