@@ -50,7 +50,7 @@ class SQLTrigger:
             attribs["VideoPath"] = video_upload_path
             attribs["VendorPath"] = vendor_path
             attribs["VendorName"] = vendor_name
-            attribs["UploadTime"] = upload_time
+            attribs["UploadTime"] = str(upload_time)
     
             if not os.path.exists(xml_upload_path):
                 logging.warning("xml file: %s not found, skip it" % xml_upload_path)

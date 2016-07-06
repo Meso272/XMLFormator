@@ -1,5 +1,5 @@
 from sql_trigger import SQLTrigger
-from couchdb_import.py import Uploader
+from couchdb_importor import Uploader
 import argparse, logging
 
 if __name__ == "__main__":
