@@ -3,7 +3,7 @@ import logging
 
 
 class ConfRepo:
-    def __init__(self, confFile="/home/luyj/media_converting/XMLFormator/src/code/Conf.ini"):
+    def __init__(self, confFile="~/media_converting/XMLFormator/src/code/Conf.ini"):
         self.conf = configparser.ConfigParser()
         self.conf.read(confFile, 'utf-8')
 
