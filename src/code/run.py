@@ -1,9 +1,9 @@
 import argparse
 import logging
 
-from .ConfRepo import ConfRepo
-from .CouchdbUploader import Uploader
-from .SqlTrigger import SQLTrigger
+from ConfRepo import ConfRepo
+from CouchdbUploader import Uploader
+from SqlTrigger import SQLTrigger
 
 if __name__ == "__main__":
     logging.basicConfig(format='%(levelname)s:%(message)s', level=logging.DEBUG)

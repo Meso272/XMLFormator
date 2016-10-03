@@ -2,8 +2,9 @@ import hashlib
 import logging
 import os
 
+from ThumbnailExtractor import ThumbnailExtractor
+
 from .FrameExtractor import keyFrameExtractor
-from .ThumbnailExtractor import ThumbnailExtractor
 
 
 # 这个类更纯粹, 不和数据库交互, 功能为: 提取给定视频的MD5, 缩略图, 关键帧

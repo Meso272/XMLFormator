@@ -1,10 +1,10 @@
-import MySQLdb
 import logging
 import os
 import sys
-from  _mysql_exceptions import *
 
-from .MediaConvertor import MediaConvertor
+import MySQLdb
+from MediaConvertor import MediaConvertor
+from  _mysql_exceptions import *
 
 
 class SQLTrigger:
