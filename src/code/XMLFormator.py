@@ -1,5 +1,9 @@
-import glob, os, logging
+import glob
+import logging
+import os
+
 from lxml import etree, objectify
+
 
 class XMLFormator:
 
@@ -78,6 +82,8 @@ class XMLFormator:
         self.ready_to_write = self.new_xml_elements
         self.ready_to_write["Video"] = [self.all_xml]
         self.__write_xml__()
+
+        return 0
 
     def __write_xml__(self):
         for tagname in self.ready_to_write:
