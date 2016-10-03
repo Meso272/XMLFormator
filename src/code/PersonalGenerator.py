@@ -34,7 +34,7 @@ class PersonalXMLGenerator:
 
         if personal_upload_info_fetcher.rowcount == 0:
             logging.warning("There is no upload log record found to process")
-            sys.exit(0)
+            return
 
         for row in personal_upload_info_fetcher:
             id = row["id"]
