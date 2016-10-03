@@ -106,5 +106,5 @@ class PersonalXMLGenerator:
         db.close()
 
 if __name__ == "__main__":
-    generator = PersonalXMLGenerator()
+    generator = PersonalXMLGenerator("localhost", "root", "pkulky201", "tps")
     generator.generate()
