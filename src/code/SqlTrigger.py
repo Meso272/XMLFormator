@@ -97,7 +97,6 @@ class SQLTrigger:
             formator_record_insert_sql = "insert into formator_record (md5, thumbnail, keyframe, log_id, xml_formated, json, json_uploaded) values ('%s', '%s', '%s', %d, %d, '%s', %d)" % (MD5, thumbnail_path, keyframes_folder, int(log_id), 1, json_path, 0)
             if need_update:
                 formator_record_insert_sql = "update formator_record set xml_formated=1 where log_id=%d" % int(log_id)
-            print(formator_record_insert_sql)
             formator_record_insert_cursor.execute(formator_record_insert_sql)
             db.commit()
 
