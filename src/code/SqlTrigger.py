@@ -8,7 +8,7 @@ from  _mysql_exceptions import *
 
 
 class SQLTrigger:
-    def __init__(self, host, user, passwd, charset, db):
+    def __init__(self, host, user, passwd, db):
         self.host = host
         self.user = user
         self.passwd = passwd
