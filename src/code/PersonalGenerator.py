@@ -8,7 +8,7 @@ from lxml import etree
 
 
 class PersonalXMLGenerator:
-    def __init__(self, host="localhost", user="root", passwd="pkulky201", db="tps"):
+    def __init__(self, host, user, passwd, db):
         self.host = host
         self.user = user
         self.passwd = passwd
@@ -18,7 +18,8 @@ class PersonalXMLGenerator:
     def generate(self):
         try:
             db = MySQLdb.connect(host=self.host, user=self.user, passwd=self.passwd, charset=self.charset, db=self.db)
-            upload_log_db = MySQLdb.connect(host="localhost", user=self.user, passwd=self.passwd, charset=self.charset, db="upload_log")
+            upload_log_db = MySQLdb.connect(host=self.host, user=self.user, passwd=self.passwd, charset=self.charset,
+                                            db="upload_log")
         except OperationalError:
             logging.error("can't connect to mysql")
             sys.exit(1)

@@ -8,11 +8,11 @@ from  _mysql_exceptions import *
 
 
 class SQLTrigger:
-    def __init__(self, host="localhost", user="root", passwd="pkulky201", charset="utf8", db="upload_log"):
+    def __init__(self, host, user, passwd, charset, db):
         self.host = host
         self.user = user
         self.passwd = passwd
-        self.charset = charset
+        self.charset = 'utf8'
         self.db = db
 
     def run(self):        

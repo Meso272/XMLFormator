@@ -12,7 +12,7 @@ from _mysql_exceptions import *
 参数: 文件件路径, couchdb服务器地址, couchdb端口
 """
 class Importor:
-    def __init__(self, server='162.105.16.64', port='5984', folderPath=''):
+    def __init__(self, server, port, folderPath=''):
         serverUrl = 'http://' + server + ':' + port + '/'
         self.couch = couchdb.Server(url=serverUrl)
         try:
@@ -72,7 +72,7 @@ class Importor:
         return 0
 
 class Uploader:
-    def __init__(self, sql_server="localhost", user="root", passwd="pkulky201", sql_db="upload_log", couch_server="162.105.16.64"):
+    def __init__(self, sql_server, user, passwd, sql_db, couch_server):
         self.sql_server = sql_server
         self.sql_db = sql_db
         self.couch_server = couch_server
