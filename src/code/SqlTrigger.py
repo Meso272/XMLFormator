@@ -33,7 +33,7 @@ class SQLTrigger:
         upload_log_cursor.execute(sql)
         upload_log_cursor.fetchall()
         if upload_log_cursor.rowcount == 0:
-            logging.warning("There is no upload log record found to process")
+            logging.warning("Sql: There is no upload log record found to process")
             sys.exit(0)
     
         for row in upload_log_cursor:
@@ -49,10 +49,10 @@ class SQLTrigger:
             vendor_path = row["vendor_path"]
             video_price = row["video_price"]
             video_copyright = row["video_copyright"]
-            xsl_folder = '../xsl/1'
+            xsl_folder = '~/media_converting/XMLFormator/src/xsl/1'
 
             if 'personal_xml' in xml_upload_path:
-                xsl_folder = '../xsl/personal'
+                xsl_folder = '~/media_converting/XMLFormator/src/xsl/personal'
 
             xml_trans_path = row["xml_trans_path"]
             video_play_path = row["video_play_path"]

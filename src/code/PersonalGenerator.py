@@ -33,7 +33,7 @@ class PersonalXMLGenerator:
         personal_upload_info_fetcher.fetchall()
 
         if personal_upload_info_fetcher.rowcount == 0:
-            logging.warning("There is no upload log record found to process")
+            logging.warning("Personal: There is no upload log record found to process")
             return
 
         for row in personal_upload_info_fetcher:
