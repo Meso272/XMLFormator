@@ -81,7 +81,7 @@ class PersonalXMLGenerator:
                          "</Program></Metadata>" % (video_path, title, keywords, produced_time, duration, format, brief)
             xml_root = etree.fromstring(xml_string.encode("utf-8"))
             xml_string = etree.tostring(xml_root, encoding='utf-8', pretty_print=True, xml_declaration=True)
-            title.replace(' ', '-')
+            title.replace(' ', '_')
             xml_path = "/home/luyj/media_converting/personal_xml/"+title+'_'+str(duration)+'.xml'
             with open(xml_path, 'w+', encoding='utf-8') as outFile:
                 outFile.write(xml_string.decode("utf-8"))
