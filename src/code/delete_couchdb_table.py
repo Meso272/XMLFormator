@@ -1,7 +1,7 @@
 import couchdb, logging
 
 class CouchDeletor:
-    def __init__(self, server='192.168.1.106', port='5984'):
+    def __init__(self, server='162.105.16.34', port='5984'):
         serverUrl = 'http://' + server + ':' + port + '/'
         self.couch = couchdb.Server(url=serverUrl)
 

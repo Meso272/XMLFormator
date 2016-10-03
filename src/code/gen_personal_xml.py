@@ -3,7 +3,7 @@ from _mysql_exceptions import *
 from lxml import etree
 
 class PersonalXMLGenerator:
-    def __init__(self, host="192.168.1.106", user="root", passwd="pkulky201", db="tps"):
+    def __init__(self, host="localhost", user="root", passwd="pkulky201", db="tps"):
         self.host = host
         self.user = user
         self.passwd = passwd
@@ -22,7 +22,7 @@ class PersonalXMLGenerator:
         personal_upload_insertor = db.cursor()
         personal_xml_insertor = upload_log_db.cursor()
 
-        upload_info_sql = "select * from upload_media_info where xml_formated=0"
+        upload_info_sql = "select * from material where status=0"
         personal_upload_info_fetcher.execute(upload_info_sql)
         personal_upload_info_fetcher.fetchall()
 
@@ -33,17 +33,24 @@ class PersonalXMLGenerator:
         for row in personal_upload_info_fetcher:
             id = row["id"]
             title = row["title"]
-            video_path = row["lowdef_vedio_upload_path"]
-            vendor_path = row["highdef_vedio_upload_path"]
+            video_path = row["lowdef_video_upload_path"]
+            vendor_path = row["highdef_video_upload_path"]
             keywords = row["video_tag"]
             produced_time = row["bDate"]
-            duration = row["duration"]
+            hours = row["hours"]
+            minutes = row["minutes"]
+            seconds = row["seconds"]
+
+            duration = int(hours) * 3600 + int(minutes) * 60 + seconds
             copyright = row["copyright"]
             mtype = row["mType"]
             format = row["format"]
             brief = row["brief_info"]
             price = row["price"]
-            xml_formated = row["xml_formated"]
+            if price == None:
+                price = 1
+            xml_formated = row["status"]
+            video_play_path = row["file_uri"]
 
             """if title contains slash"""
             title = title.replace("/", "-")
@@ -69,20 +76,20 @@ class PersonalXMLGenerator:
                          "</Program></Metadata>" % (video_path, title, keywords, produced_time, duration, format, brief)
             xml_root = etree.fromstring(xml_string.encode("utf-8"))
             xml_string = etree.tostring(xml_root, encoding='utf-8', pretty_print=True, xml_declaration=True)
-            xml_path = "/home/derc/media_converting/personal_xml/"+title+'_'+str(duration)+'.xml'
+            xml_path = "/home/luyj/media_converting/personal_xml/"+title+'_'+str(duration)+'.xml'
             with open(xml_path, 'w+', encoding='utf-8') as outFile:
                 outFile.write(xml_string.decode("utf-8"))
 
             vendor_name = "Personal"
             a = datetime.datetime.now()
-            xml_trans_path = "/home/derc/media_converting/result/" + title+'_'+str(duration)+'_'+format
+            xml_trans_path = "/home/luyj/media_converting/result/" + title+'_'+str(duration)+'_'+format
             video_cut_path = xml_trans_path
             frame_extract_path = xml_trans_path
 
             insert_sql = "insert into upload_log (vendor_name, upload_time, uploader_name, xml_upload_path," \
                          " xml_trans_path, video_upload_path, video_cut_path, frame_extract_path, vendor_path," \
-                         " video_price, video_copyright) values ('%s', NOW(), 'Admin', '%s', '%s', '%s', '%s', '%s', '%s', %d, '%s')" % (vendor_name, xml_path, xml_trans_path, video_path, video_cut_path, frame_extract_path, vendor_path, price, copyright)
-            update_sql = "update upload_media_info set xml_formated=1 where id=%d" % id
+                         " video_price, video_copyright, video_play_path) values ('%s', NOW(), 'Admin', '%s', '%s', '%s', '%s', '%s', '%s', %d, '%s', '%s')" % (vendor_name, xml_path, xml_trans_path, video_path, video_cut_path, frame_extract_path, vendor_path, price, copyright, video_play_path)
+            update_sql = "update material set status=1 where id=%d" % id
             personal_xml_insertor.execute(insert_sql)
             personal_upload_insertor.execute(update_sql)
             upload_log_db.commit()

@@ -46,11 +46,13 @@ class SQLTrigger:
             video_copyright = row["video_copyright"]
             xsl_folder = '../xsl/1'
             xml_trans_path = row["xml_trans_path"]
+            video_play_path = row["video_play_path"]
     
             attribs["VideoPath"] = video_upload_path
             attribs["VendorPath"] = vendor_path
             attribs["VendorName"] = vendor_name
             attribs["UploadTime"] = str(upload_time)
+            attribs["VideoPlayPath"] = video_play_path
     
             if not os.path.exists(xml_upload_path):
                 logging.warning("xml file: %s not found, skip it" % xml_upload_path)
@@ -90,6 +92,7 @@ class SQLTrigger:
             formator_record_insert_sql = "insert into formator_record (md5, thumbnail, keyframe, log_id, xml_formated, json, json_uploaded) values ('%s', '%s', '%s', %d, %d, '%s', %d)" % (MD5, thumbnail_path, keyframes_folder, int(log_id), 1, json_path, 0)
             if need_update:
                 formator_record_insert_sql = "update formator_record set xml_formated=1 where log_id=%d" % int(log_id)
+            print(formator_record_insert_sql)
             formator_record_insert_cursor.execute(formator_record_insert_sql)
             db.commit()
 
