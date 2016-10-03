@@ -72,14 +72,14 @@ class Importor:
         return 0
 
 class Uploader:
-    def __init__(self, sql_server, user, passwd, sql_db, couch_server):
+    def __init__(self, sql_server, user, passwd, sql_db, couch_server, couch_port):
         self.sql_server = sql_server
         self.sql_db = sql_db
         self.couch_server = couch_server
         self.user = user
         self.passwd = passwd
         self.charset = "utf8"
-        self.importor = Importor(couch_server)
+        self.importor = Importor(couch_server, couch_port)
 
     def run(self):
         try:

@@ -45,5 +45,5 @@ if __name__ == "__main__":
 
     if not args.media:
         uploader = Uploader(sql_server=upload_log_ip, user=upload_log_user, passwd=upload_log_password,
-                            sql_db=upload_log_db, couch_server=couchdb_ip)
+                            sql_db=upload_log_db, couch_server=couchdb_ip, couch_port=couchdb_port)
         uploader.run()
