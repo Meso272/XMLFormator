@@ -12,6 +12,7 @@ if __name__ == "__main__":
     parser.add_argument("-u", "--user", help="mysql user name")
     parser.add_argument("-p", "--passwd", help="mysql password")
     parser.add_argument("-db", "--database", help="database name")
+    parser.add_argument("-port", "--port", help="database port")
     parser.add_argument("--media", help="only process media info. don't upload to couchdb", default=False)
 
     confRepo = ConfRepo()
@@ -20,7 +21,7 @@ if __name__ == "__main__":
     upload_log_ip = args.server if args.server else confRepo.getParam('upload_log', 'ip')
     upload_log_port = args.port if args.port else confRepo.getParam('upload_log', 'port')
     upload_log_password = args.passwd if args.passwd else confRepo.getParam('upload_log', 'password')
-    upload_log_user = args.user if args.server else confRepo.getParam('upload_log', 'user')
+    upload_log_user = args.user if args.user else confRepo.getParam('upload_log', 'user')
     upload_log_db = args.database if args.database else confRepo.getParam('upload_log', 'db')
 
     tps_ip = confRepo.getParam('tps', 'ip')
