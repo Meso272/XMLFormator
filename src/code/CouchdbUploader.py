@@ -1,6 +1,11 @@
-import couchdb, json, os, logging, MySQLdb, sys
-from _mysql_exceptions import *
+import json
+import logging
+import os
+import sys
 
+import MySQLdb
+import couchdb
+from _mysql_exceptions import *
 
 """
 功能: 将特定文件夹下的json文件全部导入couchdb

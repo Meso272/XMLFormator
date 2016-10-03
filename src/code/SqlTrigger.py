@@ -1,6 +1,11 @@
-from media_convertor import MediaConvertor
-import MySQLdb, os, sys, logging
+import MySQLdb
+import logging
+import os
+import sys
 from  _mysql_exceptions import *
+
+from .MediaConvertor import MediaConvertor
+
 
 class SQLTrigger:
     def __init__(self, host="localhost", user="root", passwd="pkulky201", charset="utf8", db="upload_log"):

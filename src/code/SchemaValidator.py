@@ -1,7 +1,8 @@
-__author__ = 'zhouludong'
-from lxml import etree
 from os import listdir
 from os.path import isfile, join
+
+from lxml import etree
+
 
 class Validator:
     def __init__(self, xsd_source):

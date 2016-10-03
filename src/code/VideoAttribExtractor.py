@@ -1,6 +1,10 @@
-import hashlib, os, logging
-from thumbnail_extractor import ThumbnailExtractor
-from frame_extractor import keyFrameExtractor
+import hashlib
+import logging
+import os
+
+from .FrameExtractor import keyFrameExtractor
+from .ThumbnailExtractor import ThumbnailExtractor
+
 
 # 这个类更纯粹, 不和数据库交互, 功能为: 提取给定视频的MD5, 缩略图, 关键帧
 # 参数: 视频路径, 缩略图保存文件夹, 关键帧保存文件夹

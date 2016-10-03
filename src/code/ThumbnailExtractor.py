@@ -1,4 +1,9 @@
-import datetime, os, re, subprocess, logging
+import datetime
+import logging
+import os
+import re
+import subprocess
+
 
 class ThumbnailExtractor:
     def which(self, program):

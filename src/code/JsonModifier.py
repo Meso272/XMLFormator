@@ -37,7 +37,5 @@ class Helper:
                 except:
                     print("error: " + _id)
             print()
-
-
 helper = Helper("192.168.1.8", "5984")
 helper.add()

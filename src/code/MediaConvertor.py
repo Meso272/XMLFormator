@@ -1,7 +1,7 @@
-from video_attrib_extractor import VideoAttribExtractor
-from xml_formator import XMLFormator
-from xml_to_json import xml2Json
-import logging
+from .VideoAttribExtractor import VideoAttribExtractor
+from .XML2JSON import xml2Json
+from .XMLFormator import XMLFormator
+
 
 class MediaConvertor:
     def __init__(self, xml_path, xsl_folder, video_path, dest_folder, attribs):

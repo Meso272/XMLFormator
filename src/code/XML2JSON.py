@@ -1,5 +1,11 @@
-import xmltodict, json, glob, os, logging
-from json_formator import JSONFormator
+import glob
+import json
+import logging
+import os
+import xmltodict
+
+from .JsonFormator import JSONFormator
+
 
 class xml2Json:
     def xml2json(self, xmlPath, destPath, xml_attribs=True):

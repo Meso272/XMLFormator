@@ -1,30 +1,48 @@
-from sql_trigger import SQLTrigger
-from couchdb_importor import Uploader
-import argparse, logging
-from gen_personal_xml import PersonalXMLGenerator
+import argparse
+import logging
 
+from .ConfRepo import ConfRepo
+from .CouchdbUploader import Uploader
+from .SqlTrigger import SQLTrigger
 
 if __name__ == "__main__":
     logging.basicConfig(format='%(levelname)s:%(message)s', level=logging.DEBUG)
     parser = argparse.ArgumentParser()
-    parser.add_argument("-s", "--server", help="mysql erver address", default="localhost")
-    parser.add_argument("-u", "--user", help="mysql user name", default="root")
-    parser.add_argument("-p", "--passwd", help="mysql password", default="pkulky201")
-    parser.add_argument("-db", "--database", help="database name", default="upload_log")
-
+    parser.add_argument("-s", "--server", help="mysql erver address")
+    parser.add_argument("-u", "--user", help="mysql user name")
+    parser.add_argument("-p", "--passwd", help="mysql password")
+    parser.add_argument("-db", "--database", help="database name")
     parser.add_argument("--media", help="only process media info. don't upload to couchdb", default=False)
+
+    confRepo = ConfRepo()
+    args = parser.parse_args()
+
+    upload_log_ip = args.server if args.server else confRepo.getParam('upload_log', 'ip')
+    upload_log_port = args.port if args.port else confRepo.getParam('upload_log', 'port')
+    upload_log_password = args.passwd if args.passwd else confRepo.getParam('upload_log', 'password')
+    upload_log_user = args.user if args.server else confRepo.getParam('upload_log', 'user')
+    upload_log_db = args.database if args.database else confRepo.getParam('upload_log', 'db')
+
+    tps_ip = confRepo.getParam('tps', 'ip')
+    tps_port = confRepo.getParam('tps', 'port')
+    tps_user = confRepo.getParam('tps', 'user')
+    tps_password = confRepo.getParam('tps', 'password')
+    tps_db = confRepo.getParam('tps', 'db')
+
+    couchdb_ip = confRepo.getParam('couchdb', 'ip')
+    couchdb_port = confRepo.getParam('couchdb', 'port')
 
     """
     try:
         generator = PersonalXMLGenerator()
         generator.generate()
     except:
-        logging.error("generate personal xml failed")        
+        logging.error("generate personal xml failed")
     """
-    args = parser.parse_args()
-    sql_trigger = SQLTrigger(host=args.server, user=args.user, passwd=args.passwd, db=args.database)
+    sql_trigger = SQLTrigger(host=upload_log_ip, user=upload_log_user, passwd=upload_log_password, db=upload_log_db)
     sql_trigger.run()
 
     if not args.media:
-        uploader = Uploader()
+        uploader = Uploader(sql_server=upload_log_ip, user=upload_log_user, passwd=upload_log_password,
+                            sql_db=upload_log_db, couch_server=couchdb_ip)
         uploader.run()

@@ -1,9 +1,11 @@
-import cv2, copy
-import numpy as np
-from sklearn.cluster import KMeans
-import os, subprocess
-from PIL import Image
+import os
+import subprocess
 from shutil import copyfile
+
+import cv2
+import numpy as np
+from PIL import Image
+from sklearn.cluster import KMeans
 
 
 class keyFrameExtractor:

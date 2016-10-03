@@ -1,6 +1,11 @@
-import MySQLdb, logging, sys, time, datetime
+import datetime
+import logging
+import sys
+
+import MySQLdb
 from _mysql_exceptions import *
 from lxml import etree
+
 
 class PersonalXMLGenerator:
     def __init__(self, host="localhost", user="root", passwd="pkulky201", db="tps"):
