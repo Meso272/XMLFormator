@@ -95,7 +95,11 @@ class SQLTrigger:
                     continue
     
             media_convertor = MediaConvertor(xml_upload_path, xsl_folder, video_upload_path, xml_trans_path, attribs)
-            [MD5, thumbnail_path, keyframes_folder] = media_convertor.convert()
+            result = media_convertor.convert()
+            if result is None:
+                logging.error("sqltrigger: can create xml file.")
+                continue;
+            [MD5, thumbnail_path, keyframes_folder] = result
 
             json_path = xml_trans_path + '/json'
             formator_record_insert_sql = "insert into formator_record (md5, thumbnail, keyframe, log_id, xml_formated, json, json_uploaded) values ('%s', '%s', '%s', %d, %d, '%s', %d)" % (MD5, thumbnail_path, keyframes_folder, int(log_id), 1, json_path, 0)
