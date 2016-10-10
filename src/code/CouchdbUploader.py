@@ -42,10 +42,12 @@ class Importor:
                 self.dbshot.save(json_file)
             return True
         except:
+            logging.error("upload failed for file: %s" % json_string)
             return False
 
     def batchImport(self, json_folder=""):
         if not self.connected:
+            logging.error("cann't connect to couchdb server")
             return 1
         if json_folder != "":
             self.folderPath = json_folder
