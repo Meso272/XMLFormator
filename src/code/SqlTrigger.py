@@ -112,6 +112,7 @@ class SQLTrigger:
             if need_update:
                 formator_record_insert_sql = "update formator_record set xml_formated=1 where log_id=%d" % int(log_id)
             formator_record_insert_cursor.execute(formator_record_insert_sql)
+            print(formator_record_insert_sql)
             db.commit()
 
         db.close()
