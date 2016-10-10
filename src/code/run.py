@@ -34,11 +34,13 @@ if __name__ == "__main__":
     couchdb_ip = confRepo.getParam('couchdb', 'ip')
     couchdb_port = confRepo.getParam('couchdb', 'port')
 
+    """
     try:
         generator = PersonalXMLGenerator(tps_ip, tps_user, tps_password, tps_db)
         generator.generate()
     except:
         logging.error("generate personal xml failed")
+    """
 
     sql_trigger = SQLTrigger(host=upload_log_ip, user=upload_log_user, passwd=upload_log_password, db=upload_log_db)
     sql_trigger.run()

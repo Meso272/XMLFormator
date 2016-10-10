@@ -25,9 +25,12 @@ class MediaConvertor:
             self.attribs["Keyframes"] = keyframes_folder
 
         xml_formator = XMLFormator(self.xml_path, self.xsl_folder, self.dest_folder + "/xml", self.attribs)
+        xml_formator.format() 
+        """
         if xml_formator.format() != 0:
             logging.error("can not generate xml file, please check all path are right.")
             return None
+        """
 
         xml_to_json = xml2Json()
         xml_to_json.batchTransform(self.dest_folder + "/xml", self.dest_folder+"/json")
