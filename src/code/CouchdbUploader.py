@@ -112,5 +112,5 @@ class Uploader:
 
 
 if __name__ == '__main__':
-    uploader = Uploader()
+    uploader = Uploader(sql_server='localhost', user='root', passwd='pkulky201', sql_db='upload_log', couch_server="162.105.16.64", couch_port='5984')
     uploader.run()
