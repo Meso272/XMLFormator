@@ -51,7 +51,7 @@ class Importor:
             return 1
         if json_folder != "":
             self.folderPath = json_folder
-
+        print(json_folder)
         files = os.listdir(self.folderPath)
         for filename in files:
             path = os.path.join(self.folderPath, filename)
@@ -105,7 +105,7 @@ class Uploader:
             json = row["json"]
 
             if 0 != self.importor.batchImport(json):
-                logging.warning("failed to upload json file in %s" % json)
+                logging.warning("failed to upload json file in %s \n" % json)
                 continue
 
             formator_record_insert_sql = "update formator_record set json_uploaded=1 where id=%d" % int(id)
