@@ -41,8 +41,8 @@ class Importor:
             elif fileClass.startswith('Shot'):
                 self.dbshot.save(json_file)
             return True
-        except:
-            logging.error("upload failed for file: %s" % json_string)
+        except couchdb.http.ResourceConflict:
+            logging.error("resource conflict. please check your video id")
             return False
 
     def batchImport(self, json_folder=""):
@@ -68,6 +68,7 @@ class Importor:
                             data["_id"] = id
                         json_string = json.dumps(data, indent=4, ensure_ascii=False)
                         if not self.importFile(json_string, fileClass):
+                            logging.error("failed to upload file: %s" % path)
                             return 1
             elif os.path.isdir(path):
                 self.batchImport(path)
