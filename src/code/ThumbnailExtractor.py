@@ -38,7 +38,6 @@ class ThumbnailExtractor:
         :param executable: Executable to use. Default: first "ffmpeg" in $PATH
         :returns: The thumbnail data (binary string)
         """
-        infile = "\"" + infile + "\""
         if not os.path.exists(infile):
             logging.error("ThumbnailExtractor. Video file not found")
             return 1

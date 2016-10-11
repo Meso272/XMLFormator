@@ -97,7 +97,7 @@ class Uploader:
         formator_record_fetch_cursor.execute(sql)
         formator_record_fetch_cursor.fetchall()
         if formator_record_fetch_cursor.rowcount == 0:
-            logging.info("There is no record found to upload")
+            logging.info("Couch Uploader: There is no record found to upload")
             sys.exit(0)
 
         for row in formator_record_fetch_cursor:
