@@ -96,11 +96,14 @@ class SQLTrigger:
     
             media_convertor = MediaConvertor(xml_upload_path, xsl_folder, video_upload_path, xml_trans_path, attribs)
 
+            result = media_convertor.convert()
+            """
             try:
                 result = media_convertor.convert()
             except:
                 logging.error("SqlTrigger: MediaConvertor convert failed! File: %s" % xml_upload_path)
                 continue
+            """
 
             if result is None:
                 logging.error("sqltrigger: can create xml file.")
