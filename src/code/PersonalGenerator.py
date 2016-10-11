@@ -76,7 +76,7 @@ class PersonalXMLGenerator:
                          "<ProducedDate>%s</ProducedDate>" \
                          "</Date>" \
                          "<Format>" \
-                         "<StartingPoint>00:00:00</StartingPoint>" \
+                         "<StartingPoint>0</StartingPoint>" \
                          "<Duration>%s</Duration>" \
                          "<FileFormat>%s</FileFormat>" \
                          "</Format>" \
