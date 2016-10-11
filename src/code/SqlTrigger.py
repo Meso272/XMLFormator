@@ -99,7 +99,7 @@ class SQLTrigger:
             try:
                 result = media_convertor.convert()
             except:
-                logging.error("MediaConvertor convert failed! File: %s" % xml_upload_path)
+                logging.error("SqlTrigger: MediaConvertor convert failed! File: %s" % xml_upload_path)
                 continue
 
             if result is None:
