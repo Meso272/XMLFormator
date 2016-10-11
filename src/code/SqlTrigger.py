@@ -1,5 +1,6 @@
 import logging
 import os
+import shutil
 import sys
 
 import MySQLdb
@@ -73,8 +74,10 @@ class SQLTrigger:
                 continue
     
             if not os.path.exists(xml_trans_path):
-                logging.info("xml trans path: %s not exists, create it" % xml_trans_path)
+                logging.info("create xml trans path: %s" % xml_trans_path)
                 os.makedirs(xml_trans_path)
+            else:
+                self.removeFolder(xml_trans_path)
     
             formator_record_fetch_sql = "select * from formator_record where log_id=%d" % log_id;
             formator_record_fetch_cursor.execute(formator_record_fetch_sql)
@@ -98,9 +101,10 @@ class SQLTrigger:
 
             try:
                 result = media_convertor.convert()
-            except:
+            except Exception as e:
                 logging.error("SqlTrigger: MediaConvertor convert failed! File: %s" % xml_upload_path)
-                print("Unexpected error:", sys.exc_info()[0])
+                print(e)
+                print("\n")
                 continue
 
             if result is None:
@@ -116,3 +120,14 @@ class SQLTrigger:
             db.commit()
 
         db.close()
+
+    def removeFolder(self, folder):
+        for the_file in os.listdir(folder):
+            file_path = os.path.join(folder, the_file)
+            try:
+                if os.path.isfile(file_path):
+                    os.unlink(file_path)
+                elif os.path.isdir(file_path):
+                    shutil.rmtree(file_path)
+            except Exception as e:
+                print(e)
