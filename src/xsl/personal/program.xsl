@@ -24,6 +24,9 @@
                     <Duration>
                         <xsl:value-of select="Format/Duration"></xsl:value-of>
                     </Duration>
+                    <StartingPoint>
+                        <xsl:value-of select="Format/StartingPoint"></xsl:value-of>
+                    </StartingPoint>
                     <FileFormat>
                         <xsl:value-of select="FileFormat"></xsl:value-of>
                     </FileFormat>
