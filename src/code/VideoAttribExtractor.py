@@ -52,7 +52,7 @@ class VideoAttribExtractor:
     # 提取所有属性, 并返回值
     def extract(self):
         if not os.path.exists(self.video_path):
-            logging.error("Video not exists")
+            logging.error("Video: %s not exists" % self.video_path)
             return 1
 
         self.__getMD5__()

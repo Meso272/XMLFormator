@@ -51,7 +51,7 @@ class Importor:
             return 1
         if json_folder != "":
             self.folderPath = json_folder
-        print(json_folder)
+            # print(json_folder)
         files = os.listdir(self.folderPath)
         for filename in files:
             path = os.path.join(self.folderPath, filename)
