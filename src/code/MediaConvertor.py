@@ -1,4 +1,4 @@
-import logging
+import uuid
 
 from VideoAttribExtractor import VideoAttribExtractor
 from XML2JSON import xml2Json
@@ -20,7 +20,11 @@ class MediaConvertor:
             video_attrib_extractor = VideoAttribExtractor(self.video_path, thumbnail_folder, keyframes_folder)
 
             [MD5, thumbnail_path, keyframes_folder] = video_attrib_extractor.extract()
+
+            # use uuid instead of md5
             self.attribs["MD5"] = MD5
+            uuidString = str(uuid.uuid4()).replace('-', '')
+            self.attribs["MD5"] = uuidString
             self.attribs["Thumbnail"] = thumbnail_path
             self.attribs["Keyframes"] = keyframes_folder
 
