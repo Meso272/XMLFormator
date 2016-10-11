@@ -3,6 +3,7 @@ import logging
 import sys
 
 import MySQLdb
+import cv2
 from _mysql_exceptions import *
 from lxml import etree
 
@@ -28,7 +29,7 @@ class PersonalXMLGenerator:
         personal_upload_insertor = db.cursor()
         personal_xml_insertor = upload_log_db.cursor()
 
-        upload_info_sql = "select * from material where status=0"
+        upload_info_sql = "select * from material where status=1 and xml_formated=0"
         personal_upload_info_fetcher.execute(upload_info_sql)
         personal_upload_info_fetcher.fetchall()
 
@@ -47,7 +48,8 @@ class PersonalXMLGenerator:
             minutes = row["minutes"]
             seconds = row["seconds"]
 
-            duration = (int(hours) * 3600 + int(minutes) * 60 + seconds) * 25
+            # duration = (int(hours) * 3600 + int(minutes) * 60 + seconds) * 25
+            duration = self.getVideoDuration(video_path)
             copyright = row["copyright"]
             mtype = row["mType"]
             format = row["format"]
@@ -55,12 +57,13 @@ class PersonalXMLGenerator:
             price = row["price"]
             if price == None:
                 price = 1
-            xml_formated = row["status"]
+            xml_formated = row["xml_formated"]
             video_play_path = row["file_uri"]
 
             """if title contains slash"""
             title = title.replace("/", "-")
             title = title.replace("<", "")
+            title = title.replace(" ", "_")
 
             xml_string = "<?xml version='1.0'?>" \
                          "<Metadata VendorName='Personal' VendorPath='N/A' VideoPath='%s'>" \
@@ -97,7 +100,7 @@ class PersonalXMLGenerator:
             insert_sql = "insert into upload_log (vendor_name, upload_time, uploader_name, xml_upload_path," \
                          " xml_trans_path, video_upload_path, video_cut_path, frame_extract_path, vendor_path," \
                          " video_price, video_copyright, video_play_path) values ('%s', NOW(), 'Admin', '%s', '%s', '%s', '%s', '%s', '%s', %d, '%s', '%s')" % (vendor_name, xml_path, xml_trans_path, video_path, video_cut_path, frame_extract_path, vendor_path, price, copyright, video_play_path)
-            update_sql = "update material set status=1 where id=%d" % id
+            update_sql = "update material set xml_formated=1 where id=%d" % id
             personal_xml_insertor.execute(insert_sql)
             personal_upload_insertor.execute(update_sql)
             upload_log_db.commit()
@@ -105,6 +108,10 @@ class PersonalXMLGenerator:
 
         upload_log_db.commit()
         db.close()
+
+    def getVideoDuration(self, filePath):
+        cap = cv2.VideoCapture(filePath)
+        return int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
 
 if __name__ == "__main__":
     generator = PersonalXMLGenerator("localhost", "root", "pkulky201", "tps")

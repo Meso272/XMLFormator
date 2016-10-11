@@ -96,6 +96,7 @@ class keyFrameExtractor:
             os.makedirs(destFolder + '/keyFrame')
         self.eraseFiles(destFolder + '/frame')
         self.eraseFiles(destFolder + '/keyFrame')
+        videoPath = "\"" + videoPath + "\""
         subprocess.call(['ffmpeg', '-loglevel', '16', '-i', videoPath, '-vf', 'select=eq(pict_type\,PICT_TYPE_I)',
                          '-vsync', '2', '-s', '800x600', '-f', 'image2', destFolder + '/frame' + '/frame-%02d.jpg'])
         self.eraseBlackImg(destFolder + '/frame')
