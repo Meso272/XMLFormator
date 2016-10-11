@@ -47,7 +47,7 @@ class PersonalXMLGenerator:
             minutes = row["minutes"]
             seconds = row["seconds"]
 
-            duration = int(hours) * 3600 + int(minutes) * 60 + seconds
+            duration = (int(hours) * 3600 + int(minutes) * 60 + seconds) * 25
             copyright = row["copyright"]
             mtype = row["mType"]
             format = row["format"]
