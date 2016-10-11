@@ -126,6 +126,8 @@ class XMLFormator:
     def __trimShort__(self, time):
         if not time or time == '无':
             return ''
+        if time == "00:00:00":
+            time = "0"
         time = int(time) // 25
         hour = time // 3600
         min = (time % 3600) // 60
