@@ -108,7 +108,8 @@ class XMLFormator:
             formatedXML = self.__trimTime__(formatedXML)
             xmlStrings.append(formatedXML)
         if not xmlStrings:
-            logging.warning("XMLFormator: there is no xmlString for file: %s" % self.xml_path)
+            logging.warning(
+                "XMLFormator: there is no xmlString for file: %s, maybe unsupported structure" % self.xml_path)
         return xmlStrings
 
     def __trimLong__(self, time):

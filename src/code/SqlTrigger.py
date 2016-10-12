@@ -87,6 +87,7 @@ class SQLTrigger:
                 row = formator_record_fetch_cursor.fetchone()
 
                 if row["xml_formated"] != 1:
+                    print("")
                     need_update = True
                     if row["md5"]:
                         attribs["MD5"] = row["md5"]
@@ -122,7 +123,7 @@ class SQLTrigger:
         db.close()
 
     def removeFolder(self, folder):
-        return 
+        return
         for the_file in os.listdir(folder):
             file_path = os.path.join(folder, the_file)
             try:
