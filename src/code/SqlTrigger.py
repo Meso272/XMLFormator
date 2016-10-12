@@ -122,6 +122,7 @@ class SQLTrigger:
         db.close()
 
     def removeFolder(self, folder):
+        return 
         for the_file in os.listdir(folder):
             file_path = os.path.join(folder, the_file)
             try:

@@ -69,6 +69,7 @@ class Importor:
                         json_string = json.dumps(data, indent=4, ensure_ascii=False)
                         if not self.importFile(json_string, fileClass):
                             logging.error("failed to upload file: %s" % path)
+                            os.unlink(path)
                             return 1
             elif os.path.isdir(path):
                 self.batchImport(path)
