@@ -29,7 +29,7 @@ class PersonalXMLGenerator:
         personal_upload_insertor = db.cursor()
         personal_xml_insertor = upload_log_db.cursor()
 
-        upload_info_sql = "select * from material where status=1 and xml_formated=0"
+        upload_info_sql = "select * from material where status=2 and xml_formated=0"
         personal_upload_info_fetcher.execute(upload_info_sql)
         personal_upload_info_fetcher.fetchall()
 
