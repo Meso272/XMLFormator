@@ -28,7 +28,7 @@
                         <xsl:value-of select="Format/StartingPoint"></xsl:value-of>
                     </StartingPoint>
                     <FileFormat>
-                        <xsl:value-of select="FileFormat"></xsl:value-of>
+                        <xsl:value-of select="Format/FileFormat"></xsl:value-of>
                     </FileFormat>
                 </Format>
                 <Description>
