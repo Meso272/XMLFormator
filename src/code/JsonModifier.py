@@ -33,6 +33,7 @@ class Helper:
                     doc["Metadata"]["LogID"] = -1
                     doc["Metadata"]["MaterialID"] = -1
                     db.save(doc)
+                    print(count, '/', 'total', end='\r')
                 except:
                     print("error: " + _id)
 helper = Helper("162.105.16.229", "5984")
