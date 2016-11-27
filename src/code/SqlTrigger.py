@@ -61,7 +61,7 @@ class SQLTrigger:
             attribs["VendorName"] = vendor_name
             attribs["UploadTime"] = str(upload_time)
             attribs["VideoPlayPath"] = video_play_path
-            attribs["Visible"] = 0
+            attribs["Visible"] = 1
             attribs["LogID"] = log_id
             attribs["MaterialID"] = material_id
 

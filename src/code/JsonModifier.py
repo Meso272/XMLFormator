@@ -29,13 +29,11 @@ class Helper:
                 count += 1
                 try:
                     doc = db[_id]
-                    VideoPath = doc["Metadata"]["VideoPath"]
-                    VideoPlayPath = VideoPath.replace("input", "video_play")[:-3] + "mp4"
-                    doc["Metadata"]["VideoPlayPath"] = VideoPlayPath
+                    doc["Metadata"]["Visible"] = 1
+                    doc["Metadata"]["LogID"] = -1
+                    doc["Metadata"]["MaterialID"] = -1
                     db.save(doc)
-                    print(db.name + ": ", count, "/", total, end="\r")
                 except:
                     print("error: " + _id)
-            print()
-helper = Helper("192.168.1.8", "5984")
+helper = Helper("162.105.16.229", "5984")
 helper.add()
