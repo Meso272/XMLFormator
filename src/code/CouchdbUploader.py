@@ -66,6 +66,7 @@ class Importor:
         sql = "insert into json_couch_ids (log_id, couch_id, parent_id, rev, material_id) values" \
               " (%d, '%s', '%s' '%s', '%s')" % (log_id, couch_id, parent_id, rev, material_id)
         connection.cursor().execute(sql)
+        connection.commit()
 
     def getParentID(self, json_string):
         json_file = json.loads(json_string)
