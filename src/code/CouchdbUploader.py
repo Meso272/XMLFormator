@@ -6,6 +6,7 @@ import sys
 import MySQLdb
 import couchdb
 from _mysql_exceptions import *
+from .ConfRepo import ConfRepo
 
 """
 功能: 将特定文件夹下的json文件全部导入couchdb
@@ -26,11 +27,14 @@ class Importor:
             logging.error("can't connect to couchdb: %s" % serverUrl)
             self.connected = False
         self.folderPath = folderPath
+        self.conf = ConfRepo()
 
     def importFile(self, json_string, fileClass):  # 将单个文件导入couchdb, filePath为文件路径
         json_file = json.loads(json_string)
         log_id = self.getLogID(json_string)
+        material_id = self.getMaterialId(json_string)
         couch_id = ""
+        rev = ""
         parent_id = ""
         try:
             if fileClass.startswith('Video'):
@@ -48,26 +52,30 @@ class Importor:
             elif fileClass.startswith('Shot'):
                 [couch_id, rev] = self.dbshot.save(json_file)
                 parent_id = self.getParentID(json_string)
-            self.storeIDs(log_id, couch_id, parent_id)
+            self.storeIDs(log_id, couch_id, parent_id, rev, material_id)
             return True
         except couchdb.http.ResourceConflict:
             logging.error("resource conflict. please check your video id")
             return False
 
-    def storeIDs(self, log_id, couch_id, parent_id):
-        host = ConfRepo.getParam('upload_log', 'ip')
-        user = ConfRepo.getParam('upload_log', 'user')
-        password = ConfRepo.getParam('upload_log', 'password')
+    def storeIDs(self, log_id, couch_id, parent_id, rev, material_id):
+        host = self.conf.getParam('upload_log', 'ip')
+        user = self.conf.getParam('upload_log', 'user')
+        password = self.conf.getParam('upload_log', 'password')
         connection = MySQLdb.connect(host=host, user=user, passwd=password)
-        sql = "insert into json_couch_ids (log_id, couch_id, parent_id) values (%d, '%s', '%s')" % (log_id, couch_id, parent_id)
+        sql = "insert into json_couch_ids (log_id, couch_id, parent_id, rev, material_id) values" \
+              " (%d, '%s', '%s' '%s', '%s')" % (log_id, couch_id, parent_id, rev, material_id)
         connection.cursor().execute(sql)
-
 
     def getParentID(self, json_string):
         json_file = json.loads(json_string)
         return json_file['Metadata']['ParentID']
 
-    def getParentID(self, json_string):
+    def getMaterialID(self, json_string):
+        json_file = json.loads(json_string)
+        return json_file['Metadata']['MaterialID']
+
+    def getLogID(self, json_string):
         json_file = json.loads(json_string)
         return json_file['Metadata']['LogID']
 

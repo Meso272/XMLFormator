@@ -1,12 +1,10 @@
 import logging
 import os
-import shutil
 import sys
-
 import MySQLdb
-from ConfRepo import ConfRepo
-from MediaConvertor import MediaConvertor
-from  _mysql_exceptions import *
+from .ConfRepo import ConfRepo
+from .MediaConvertor import MediaConvertor
+from _mysql_exceptions import *
 
 
 class SQLTrigger:
@@ -52,6 +50,7 @@ class SQLTrigger:
             vendor_path = row["vendor_path"]
             video_price = row["video_price"]
             video_copyright = row["video_copyright"]
+            material_id = row["material_id"]
             xsl_folder = confRepo.getParam("XSL_map", vendor_name)
 
             xml_trans_path = row["xml_trans_path"]
@@ -62,9 +61,10 @@ class SQLTrigger:
             attribs["VendorName"] = vendor_name
             attribs["UploadTime"] = str(upload_time)
             attribs["VideoPlayPath"] = video_play_path
-            attribs["Deleted"] = 0
+            attribs["Visible"] = 0
             attribs["LogID"] = log_id
-    
+            attribs["MaterialID"] = material_id
+
             if not os.path.exists(xml_upload_path):
                 logging.warning("xml file: %s not found, skip it" % xml_upload_path)
                 sys.stdout.flush()
@@ -77,8 +77,8 @@ class SQLTrigger:
             if not os.path.exists(xml_trans_path):
                 logging.info("create xml trans path: %s" % xml_trans_path)
                 os.makedirs(xml_trans_path)
-            else:
-                self.removeFolder(xml_trans_path)
+            # else:
+            #     self.removeFolder(xml_trans_path)
     
             formator_record_fetch_sql = "select * from formator_record where log_id=%d" % log_id;
             formator_record_fetch_cursor.execute(formator_record_fetch_sql)
@@ -114,8 +114,14 @@ class SQLTrigger:
                 continue;
             [MD5, thumbnail_path, keyframes_folder] = result
 
+            predefinedThumbnail = self.getPredefinedThumbnail(frame_extract_path)
+            thumbnail_path = predefinedThumbnail if predefinedThumbnail else thumbnail_path
+
             json_path = xml_trans_path + '/json'
-            formator_record_insert_sql = "insert into formator_record (md5, thumbnail, keyframe, log_id, xml_formated, json, json_uploaded) values ('%s', '%s', '%s', %d, %d, '%s', %d)" % (MD5, thumbnail_path, keyframes_folder, int(log_id), 1, json_path, 0)
+            formator_record_insert_sql = "insert into formator_record " \
+                                         "(md5, thumbnail, keyframe, log_id, xml_formated, json, json_uploaded) values " \
+                                         "('%s', '%s', '%s', %d, %d, '%s', %d)" % \
+                                         (MD5, thumbnail_path, keyframes_folder, int(log_id), 1, json_path, 0)
             if need_update:
                 formator_record_insert_sql = "update formator_record set xml_formated=1 where log_id=%d" % int(log_id)
             formator_record_insert_cursor.execute(formator_record_insert_sql)
@@ -123,14 +129,20 @@ class SQLTrigger:
 
         db.close()
 
-    def removeFolder(self, folder):
-        return
-        for the_file in os.listdir(folder):
-            file_path = os.path.join(folder, the_file)
-            try:
-                if os.path.isfile(file_path):
-                    os.unlink(file_path)
-                elif os.path.isdir(file_path):
-                    shutil.rmtree(file_path)
-            except Exception as e:
-                print(e)
+    # def removeFolder(self, folder):
+    #     for the_file in os.listdir(folder):
+    #         file_path = os.path.join(folder, the_file)
+    #         try:
+    #             if os.path.isfile(file_path):
+    #                 os.unlink(file_path)
+    #             elif os.path.isdir(file_path):
+    #                 shutil.rmtree(file_path)
+    #         except Exception as e:
+    #             print(e)
+
+    def getPredefinedThumbnail(self, path):
+        for the_file in os.listdir(path).sort():
+            thumbnail_path = os.path.join(path, the_file)
+            if os.path.isfile(thumbnail_path) and (the_file.endswith(".jpg") or the_file.endswith(".jpeg")):
+                return thumbnail_path
+        return None

@@ -4,7 +4,7 @@ import logging
 import os
 
 import xmltodict
-from JsonFormator import JSONFormator
+from .JsonFormator import JSONFormator
 
 
 class xml2Json:

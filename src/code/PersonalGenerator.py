@@ -38,7 +38,7 @@ class PersonalXMLGenerator:
             return
 
         for row in personal_upload_info_fetcher:
-            id = row["id"]
+            material_id = row["id"]
             title = row["title"]
             video_path = row["lowdef_video_upload_path"]
             vendor_path = row["highdef_video_upload_path"]
@@ -99,8 +99,11 @@ class PersonalXMLGenerator:
 
             insert_sql = "insert into upload_log (vendor_name, upload_time, uploader_name, xml_upload_path," \
                          " xml_trans_path, video_upload_path, video_cut_path, frame_extract_path, vendor_path," \
-                         " video_price, video_copyright, video_play_path) values ('%s', NOW(), 'Admin', '%s', '%s', '%s', '%s', '%s', '%s', %d, '%s', '%s')" % (vendor_name, xml_path, xml_trans_path, video_path, video_cut_path, frame_extract_path, vendor_path, price, copyright, video_play_path)
-            update_sql = "update material set xml_formated=1 where id=%d" % id
+                         " video_price, video_copyright, video_play_path, material_id) values " \
+                         "('%s', NOW(), 'Admin', '%s', '%s', '%s', '%s', '%s', '%s', %d, '%s', '%s', %d)" % \
+                         (vendor_name, xml_path, xml_trans_path, video_path, video_cut_path, frame_extract_path,
+                          vendor_path, price, copyright, video_play_path, material_id)
+            update_sql = "update material set xml_formated=1 where id=%d" % material_id
             personal_xml_insertor.execute(insert_sql)
             personal_upload_insertor.execute(update_sql)
             upload_log_db.commit()
