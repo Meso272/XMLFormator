@@ -4,7 +4,7 @@ import sys
 
 import MySQLdb
 from _mysql_exceptions import *
-from src.code.scripts.MediaConvertor import MediaConvertor
+from .MediaConvertor import MediaConvertor
 
 from scripts import ConfRepo
 
