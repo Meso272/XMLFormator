@@ -1,10 +1,10 @@
 import argparse
 import logging
 
-from .ConfRepo import ConfRepo
-from .CouchdbUploader import Uploader
-from .PersonalGenerator import PersonalXMLGenerator
-from .SqlTrigger import SQLTrigger
+from src.code.scripts.ConfRepo import ConfRepo
+from src.code.scripts.CouchdbUploader import Uploader
+from src.code.scripts.PersonalGenerator import PersonalXMLGenerator
+from src.code.scripts.SqlTrigger import SQLTrigger
 
 if __name__ == "__main__":
     logging.basicConfig(format='%(levelname)s:%(message)s', level=logging.DEBUG)
