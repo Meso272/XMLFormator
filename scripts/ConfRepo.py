@@ -5,7 +5,7 @@ import os
 
 class ConfRepo:
     def __init__(self, conf_file="Conf.ini"):
-        os.chdir(os.path.dirname(__file__))
+        # os.chdir(os.path.dirname(__file__))
         self.conf = configparser.ConfigParser()
         result = self.conf.read(conf_file, 'utf-8')
         if result is None:
