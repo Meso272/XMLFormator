@@ -6,7 +6,7 @@ import MySQLdb
 from _mysql_exceptions import *
 from .MediaConvertor import MediaConvertor
 
-from scripts import ConfRepo
+from scripts.ConfRepo import ConfRepo
 
 
 class SQLTrigger:
