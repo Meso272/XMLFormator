@@ -2,10 +2,9 @@ import glob
 import json
 import logging
 import os
-
 import xmltodict
 
-from src.code.scripts.JsonFormator import JSONFormator
+from .JsonFormator import JSONFormator
 
 
 class xml2Json:

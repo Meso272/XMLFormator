@@ -1,7 +1,6 @@
 import glob
 import logging
 import os
-
 from lxml import etree, objectify
 
 
