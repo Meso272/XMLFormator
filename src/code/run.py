@@ -19,20 +19,20 @@ if __name__ == "__main__":
     confRepo = ConfRepo()
     args = parser.parse_args()
 
-    upload_log_ip = args.server if args.server else confRepo.getParam('upload_log', 'ip')
-    upload_log_port = args.port if args.port else confRepo.getParam('upload_log', 'port')
-    upload_log_password = args.passwd if args.passwd else confRepo.getParam('upload_log', 'password')
-    upload_log_user = args.user if args.user else confRepo.getParam('upload_log', 'user')
-    upload_log_db = args.database if args.database else confRepo.getParam('upload_log', 'db')
+    upload_log_ip = args.server if args.server else confRepo.get_param('upload_log', 'ip')
+    upload_log_port = args.port if args.port else confRepo.get_param('upload_log', 'port')
+    upload_log_password = args.passwd if args.passwd else confRepo.get_param('upload_log', 'password')
+    upload_log_user = args.user if args.user else confRepo.get_param('upload_log', 'user')
+    upload_log_db = args.database if args.database else confRepo.get_param('upload_log', 'db')
 
-    tps_ip = confRepo.getParam('tps', 'ip')
-    tps_port = confRepo.getParam('tps', 'port')
-    tps_user = confRepo.getParam('tps', 'user')
-    tps_password = confRepo.getParam('tps', 'password')
-    tps_db = confRepo.getParam('tps', 'db')
+    tps_ip = confRepo.get_param('tps', 'ip')
+    tps_port = confRepo.get_param('tps', 'port')
+    tps_user = confRepo.get_param('tps', 'user')
+    tps_password = confRepo.get_param('tps', 'password')
+    tps_db = confRepo.get_param('tps', 'db')
 
-    couchdb_ip = confRepo.getParam('couchdb', 'ip')
-    couchdb_port = confRepo.getParam('couchdb', 'port')
+    couchdb_ip = confRepo.get_param('couchdb', 'ip')
+    couchdb_port = confRepo.get_param('couchdb', 'port')
 
     try:
         generator = PersonalXMLGenerator(tps_ip, tps_user, tps_password, tps_db)

@@ -2,7 +2,7 @@ import hashlib
 import logging
 import os
 
-from .FrameExtractor import keyFrameExtractor
+from .FrameExtractor import KeyframeExtractor
 from .ThumbnailExtractor import ThumbnailExtractor
 
 
@@ -46,7 +46,7 @@ class VideoAttribExtractor:
 
     # 获得视频的关键帧，给定视频路径和视频关键帧的存放文件夹
     def __get_keyframe__(self):
-        extractor = keyFrameExtractor()
+        extractor = KeyframeExtractor()
         extractor.extract(self.video_path, self.keyframes_folder, k=3)
 
     # 提取所有属性, 并返回值

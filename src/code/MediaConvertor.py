@@ -24,8 +24,8 @@ class MediaConvertor:
 
             # use uuid instead of md5
             self.attribs["MD5"] = MD5
-            uuidString = str(uuid.uuid4()).replace('-', '')
-            self.attribs["MD5"] = uuidString
+            uuid_string = str(uuid.uuid4()).replace('-', '')
+            self.attribs["MD5"] = uuid_string
             self.attribs["Thumbnail"] = thumbnail_path
             self.attribs["Keyframes"] = keyframes_folder
 
@@ -35,7 +35,7 @@ class MediaConvertor:
             return None
 
         xml_to_json = xml2Json()
-        xml_to_json.batchTransform(self.dest_folder + "/xml", self.dest_folder+"/json")
+        xml_to_json.batch_transform(self.dest_folder + "/xml", self.dest_folder + "/json")
 
         return [self.attribs["MD5"], self.attribs["Thumbnail"], self.attribs["Keyframes"]]
 

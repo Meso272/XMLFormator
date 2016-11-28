@@ -8,12 +8,12 @@ from PIL import Image
 from sklearn.cluster import KMeans
 
 
-class keyFrameExtractor:
+class KeyframeExtractor:
     def __init__(self):
         self.frames = None
 
-    def isBlack(self, imgPath):
-        im = Image.open(imgPath).convert('LA')
+    def is_black(self, img_path):
+        im = Image.open(img_path).convert('LA')
         pixels = im.getdata()  # get the pixels as a flattened sequence
         black_thresh = 50
         nblack = 0
@@ -25,14 +25,14 @@ class keyFrameExtractor:
             return True
         return False
 
-    def calcHist(self, root='frame'):
+    def calc_hist(self, root='frame'):
         for file in os.listdir(root):
             if not file.endswith('.jpg'):
                 continue
             img = cv2.imread(os.path.join(root, file))
-            hist1 = cv2.calcHist([img], [0], None, [10], [0, 256])
-            hist2 = np.append(hist1, cv2.calcHist([img], [1], None, [10], [0, 256]))
-            hist3 = np.append(hist2, cv2.calcHist([img], [2], None, [10], [0, 256]))
+            hist1 = cv2.calc_hist([img], [0], None, [10], [0, 256])
+            hist2 = np.append(hist1, cv2.calc_hist([img], [1], None, [10], [0, 256]))
+            hist3 = np.append(hist2, cv2.calc_hist([img], [2], None, [10], [0, 256]))
             hist = hist3
             hist = np.int32(np.around(hist))
             if isinstance(self.frames, np.ndarray):
@@ -42,7 +42,7 @@ class keyFrameExtractor:
 
     def get_k_img(self, imgFolder, k=3):
         if not self.frames:
-            self.calcHist(imgFolder)
+            self.calc_hist(imgFolder)
         model = KMeans(k)
         model.fit(self.frames)
         labels = model.labels_
@@ -83,7 +83,7 @@ class keyFrameExtractor:
         for the_file in os.listdir(folder):
             file_path = os.path.join(folder, the_file)
             try:
-                if file_path.endswith('jpg') and self.isBlack(file_path):
+                if file_path.endswith('jpg') and self.is_black(file_path):
                     os.unlink(file_path)
                     # elif os.path.isdir(file_path): shutil.rmtree(file_path)
             except Exception as e:
@@ -108,5 +108,5 @@ class keyFrameExtractor:
         return (sum((self.frames[id]-center)**2))/len(center)
 
 if __name__ == '__main__':
-    extractor = keyFrameExtractor()
+    extractor = KeyframeExtractor()
     extractor.extract('test/iPadPro.mp4', 'test/result', 10)

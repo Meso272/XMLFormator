@@ -31,8 +31,13 @@ class PersonalXMLGenerator:
         personal_xml_insertor = upload_log_db.cursor()
 
         upload_info_sql = "select * from material where status=2 and xml_formated=0"
-        personal_upload_info_fetcher.execute(upload_info_sql)
-        personal_upload_info_fetcher.fetchall()
+        try:
+            personal_upload_info_fetcher.execute(upload_info_sql)
+            personal_upload_info_fetcher.fetchall()
+        except ProgrammingError:
+            logging.info("ProgrammingError")
+        except IntegrityError:
+            logging.info("检查约束失败")
 
         if personal_upload_info_fetcher.rowcount == 0:
             logging.warning("Personal: There is no upload log record found to process")

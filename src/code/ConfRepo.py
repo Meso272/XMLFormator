@@ -1,26 +1,24 @@
 import configparser
 import logging
+import os
 
 
 class ConfRepo:
-    def __init__(self, confFile="Conf.ini"):
+    def __init__(self, conf_file="Conf.ini"):
+        os.chdir(os.path.dirname(__file__))
         self.conf = configparser.ConfigParser()
-        self.conf.read(confFile, 'utf-8')
+        result = self.conf.read(conf_file, 'utf-8')
+        if result is None:
+            logging.error("configure file not found. please give a connect path")
+            exit(1)
 
-    def getParam(self, section, option):
+    def get_param(self, section, option):
         if section in self.conf.keys() and option in self.conf[section]:
             return self.conf.get(section, option)
         else:
             logging.error("section or option: %s not found in configure file" % (section + ": " + option))
             return False
 
-    def getSections(self):
+    def get_sections(self):
         return self.conf.keys()
 
-
-if __name__ == "__main__":
-    confFile = "Conf.ini"
-    confRepo = ConfRepo(confFile)
-    for section in confRepo.getSections():
-        if section != "DEFAULT":
-            print("%s = %s" % (section, confRepo.getParam(section, "ip")))

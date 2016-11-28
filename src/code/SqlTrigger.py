@@ -51,7 +51,7 @@ class SQLTrigger:
             video_price = row["video_price"]
             video_copyright = row["video_copyright"]
             material_id = row["material_id"]
-            xsl_folder = confRepo.getParam("XSL_map", vendor_name)
+            xsl_folder = confRepo.get_param("XSL_map", vendor_name)
 
             xml_trans_path = row["xml_trans_path"]
             video_play_path = row["video_play_path"]
@@ -77,9 +77,7 @@ class SQLTrigger:
             if not os.path.exists(xml_trans_path):
                 logging.info("create xml trans path: %s" % xml_trans_path)
                 os.makedirs(xml_trans_path)
-            # else:
-            #     self.removeFolder(xml_trans_path)
-    
+
             formator_record_fetch_sql = "select * from formator_record where log_id=%d" % log_id;
             formator_record_fetch_cursor.execute(formator_record_fetch_sql)
 
@@ -114,8 +112,8 @@ class SQLTrigger:
                 continue;
             [MD5, thumbnail_path, keyframes_folder] = result
 
-            predefinedThumbnail = self.getPredefinedThumbnail(frame_extract_path)
-            thumbnail_path = predefinedThumbnail if predefinedThumbnail else thumbnail_path
+            predefined_thumbnail = self.get_predefined_thumbnail(frame_extract_path)
+            thumbnail_path = predefined_thumbnail if predefined_thumbnail else thumbnail_path
 
             json_path = xml_trans_path + '/json'
             formator_record_insert_sql = "insert into formator_record " \
@@ -129,19 +127,8 @@ class SQLTrigger:
 
         db.close()
 
-    # def removeFolder(self, folder):
-    #     for the_file in os.listdir(folder):
-    #         file_path = os.path.join(folder, the_file)
-    #         try:
-    #             if os.path.isfile(file_path):
-    #                 os.unlink(file_path)
-    #             elif os.path.isdir(file_path):
-    #                 shutil.rmtree(file_path)
-    #         except Exception as e:
-    #             print(e)
-
-    def getPredefinedThumbnail(self, path):
-        for the_file in os.listdir(path).sort():
+    def get_predefined_thumbnail(self, path):
+        for the_file in sorted(os.listdir(path)):
             thumbnail_path = os.path.join(path, the_file)
             if os.path.isfile(thumbnail_path) and (the_file.endswith(".jpg") or the_file.endswith(".jpeg")):
                 return thumbnail_path

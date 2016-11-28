@@ -1,6 +1,6 @@
 import logging
-
 import couchdb
+from couchdb.http import *
 
 
 class Helper:
@@ -33,8 +33,13 @@ class Helper:
                     doc["Metadata"]["LogID"] = -1
                     doc["Metadata"]["MaterialID"] = -1
                     db.save(doc)
-                    print(count, '/', total, end='\r')
-                except:
-                    print("error: " + _id)
+                    logging.error(count, '/', total, end='\r')
+                except ResourceConflict:
+                    logging.error("id confilict: " + _id)
+                except ResourceNotFound:
+                    logging.error("file not found in couchdb")
+                except ServerError:
+                    logging.error("server error")
+
 helper = Helper("162.105.16.229", "5984")
 helper.add()
