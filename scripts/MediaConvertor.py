@@ -1,10 +1,9 @@
 import logging
 import uuid
 
+from scripts import VideoAttribExtractor
 from .XML2JSON import xml2Json
 from .XMLFormator import XMLFormator
-
-from src.scripts.VideoAttribExtractor import VideoAttribExtractor
 
 
 class MediaConvertor:

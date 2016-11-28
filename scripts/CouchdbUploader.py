@@ -2,11 +2,12 @@ import json
 import logging
 import os
 import sys
+
 import MySQLdb
 import couchdb
 from _mysql_exceptions import *
 
-from src.scripts.ConfRepo import ConfRepo
+from scripts import ConfRepo
 
 """
 功能: 将特定文件夹下的json文件全部导入couchdb
