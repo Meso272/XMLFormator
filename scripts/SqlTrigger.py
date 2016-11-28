@@ -1,12 +1,10 @@
 import logging
 import os
 import sys
-
 import MySQLdb
 from _mysql_exceptions import *
 from .MediaConvertor import MediaConvertor
-
-from scripts.ConfRepo import ConfRepo
+from .ConfRepo import ConfRepo
 
 
 class SQLTrigger:

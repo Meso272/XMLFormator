@@ -1,7 +1,7 @@
 import logging
 import uuid
 
-from scripts import VideoAttribExtractor
+from .VideoAttribExtractor import VideoAttribExtractor
 from .XML2JSON import xml2Json
 from .XMLFormator import XMLFormator
 

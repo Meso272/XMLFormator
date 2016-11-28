@@ -2,7 +2,6 @@ import datetime
 import logging
 import sys
 import os
-
 import MySQLdb
 import cv2
 from _mysql_exceptions import *

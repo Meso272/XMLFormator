@@ -2,7 +2,6 @@ import json
 import logging
 import os
 import sys
-
 import MySQLdb
 import couchdb
 from _mysql_exceptions import *
