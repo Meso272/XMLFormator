@@ -27,7 +27,7 @@ class SQLTrigger:
         formator_record_insert_cursor = db.cursor()
     
         attribs = dict()
-        confRepo = ConfRepo()
+        confRepo = ConfRepo('../Conf.ini')
     
         #sql = "select * from upload_log where date(upload_time) = date(date_sub(now(), interval 1 day))" 
         sql = "select * from upload_log"
