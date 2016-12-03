@@ -23,6 +23,6 @@ for dir in listdir(folder):
                 " vendor_path) values ( '%s', '%s', '%s', '%s')" % \
                 (xmlFile, videoFile, 'BTV', 'NA')
         #print(query)
-        cursor.execute(query)
+        cursor.run_sql(query)
 db.commit()
 db.close()

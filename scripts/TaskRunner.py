@@ -1,13 +1,15 @@
 import logging
 import os
 import sys
+
 import MySQLdb
 from _mysql_exceptions import *
-from .MediaConvertor import MediaConvertor
-from .ConfRepo import ConfRepo
+
+from scripts.Task.XMLFormatTask import MediaConvertor
+from .Configure import ConfRepo
 
 
-class SQLTrigger:
+class TaskRunner:
     def __init__(self, host, user, passwd, db):
         self.host = host
         self.user = user
@@ -26,19 +28,19 @@ class SQLTrigger:
         formator_record_fetch_cursor = db.cursor(MySQLdb.cursors.DictCursor)
         formator_record_insert_cursor = db.cursor()
     
-        attribs = dict()
-        confRepo = ConfRepo('../Conf.ini')
-    
-        #sql = "select * from upload_log where date(upload_time) = date(date_sub(now(), interval 1 day))" 
+        attribs2add = dict()
+        confRepo = ConfRepo('Conf.ini')
+
         sql = "select * from upload_log"
-        upload_log_cursor.execute(sql)
+        videos = self.get_videos(sql)
+        upload_log_cursor.run_sql(sql)
         upload_log_cursor.fetchall()
         if upload_log_cursor.rowcount == 0:
             logging.warning("Sql: There is no upload log record found to process")
             sys.exit(0)
     
         for row in upload_log_cursor:
-            attribs.clear()
+            attribs2add.clear()
             log_id = row["log_id"]
             vendor_name = row["vendor_name"]
             upload_time = row["upload_time"]
@@ -56,14 +58,14 @@ class SQLTrigger:
             xml_trans_path = row["xml_trans_path"]
             video_play_path = row["video_play_path"]
     
-            attribs["VideoPath"] = video_upload_path
-            attribs["VendorPath"] = vendor_path
-            attribs["VendorName"] = vendor_name
-            attribs["UploadTime"] = str(upload_time)
-            attribs["VideoPlayPath"] = video_play_path
-            attribs["Visible"] = 1
-            attribs["LogID"] = log_id
-            attribs["MaterialID"] = material_id
+            attribs2add["VideoPath"] = video_upload_path
+            attribs2add["VendorPath"] = vendor_path
+            attribs2add["VendorName"] = vendor_name
+            attribs2add["UploadTime"] = str(upload_time)
+            attribs2add["VideoPlayPath"] = video_play_path
+            attribs2add["Visible"] = 1
+            attribs2add["LogID"] = log_id
+            attribs2add["MaterialID"] = material_id
 
             if not os.path.exists(xml_upload_path):
                 logging.warning("xml file: %s not found, skip it" % xml_upload_path)
@@ -79,7 +81,7 @@ class SQLTrigger:
                 os.makedirs(xml_trans_path)
 
             formator_record_fetch_sql = "select * from formator_record where log_id=%d" % log_id;
-            formator_record_fetch_cursor.execute(formator_record_fetch_sql)
+            formator_record_fetch_cursor.run_sql(formator_record_fetch_sql)
 
             need_update = False
             if formator_record_fetch_cursor.rowcount == 1:
@@ -89,15 +91,15 @@ class SQLTrigger:
                     print("")
                     need_update = True
                     if row["md5"]:
-                        attribs["MD5"] = row["md5"]
+                        attribs2add["MD5"] = row["md5"]
                     if row["thumbnail"]:
-                        attribs["Thumbnail"] = row["thumbnail"]
+                        attribs2add["Thumbnail"] = row["thumbnail"]
                     if row["keyframe"]:
-                        attribs["Keyframes"] = row["keyframe"]
+                        attribs2add["Keyframes"] = row["keyframe"]
                 else:
                     continue
     
-            media_convertor = MediaConvertor(xml_upload_path, xsl_folder, video_upload_path, xml_trans_path, attribs)
+            media_convertor = MediaConvertor(xml_upload_path, xsl_folder, video_upload_path, xml_trans_path, attribs2add)
 
             try:
                 result = media_convertor.convert()
@@ -108,7 +110,7 @@ class SQLTrigger:
                 continue
 
             if result is None:
-                logging.error("sqltrigger: can create xml file.")
+                logging.error("sqltrigger: can not create xml file.")
                 continue;
             [MD5, thumbnail_path, keyframes_folder] = result
 
@@ -122,7 +124,7 @@ class SQLTrigger:
                                          (MD5, thumbnail_path, keyframes_folder, int(log_id), 1, json_path, 0)
             if need_update:
                 formator_record_insert_sql = "update formator_record set xml_formated=1 where log_id=%d" % int(log_id)
-            formator_record_insert_cursor.execute(formator_record_insert_sql)
+            formator_record_insert_cursor.run_sql(formator_record_insert_sql)
             db.commit()
 
         db.close()

@@ -1,0 +1,15 @@
+class Video:
+    def __init__(self, log_id, vendor_name, upload_time, uploader_name, xml_upload_path, video_upload_path, video_cut_path,
+                 frame_extract_path, vendor_path, video_price, video_copyright, material_id):
+        self.log_id = log_id
+        self.vendor_name = vendor_name
+        self.upload_time = upload_time
+        self.uploader_name = uploader_name
+        self.xml_upload_path = xml_upload_path
+        self.video_upload_path = video_upload_path
+        self.video_cut_path = video_cut_path
+        self.frame_extract_path = frame_extract_path
+        self.vendor_path = vendor_path
+        self.video_price = video_price
+        self.video_copyright = video_copyright
+        self.material_id = material_id

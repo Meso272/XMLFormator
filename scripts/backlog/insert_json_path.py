@@ -21,7 +21,7 @@ class SQLTrigger:
         formator_record_insert_cursor = db.cursor()
     
         sql = "select * from formator_record"
-        formator_record_fetch_cursor.execute(sql)
+        formator_record_fetch_cursor.run_sql(sql)
         formator_record_fetch_cursor.fetchall()
         if formator_record_fetch_cursor.rowcount == 0:
             logging.warning("There is no upload log record found to process")
@@ -33,7 +33,7 @@ class SQLTrigger:
     
             json = '/'.join(thumbnail.split('/')[:-2]) + "/json"
             formator_record_insert_sql = "update formator_record set json='%s' where id=%d" % (json, int(id))
-            formator_record_insert_cursor.execute(formator_record_insert_sql)
+            formator_record_insert_cursor.run_sql(formator_record_insert_sql)
             db.commit()
         db.close()
 

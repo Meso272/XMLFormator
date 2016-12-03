@@ -6,7 +6,7 @@ import MySQLdb
 import couchdb
 from _mysql_exceptions import *
 
-from scripts import ConfRepo
+from scripts import Configure
 
 """
 功能: 将特定文件夹下的json文件全部导入couchdb
@@ -29,7 +29,7 @@ class Importor:
             logging.error("can't connect to couchdb: %s" % server_url)
             self.connected = False
         self.folderPath = folder_path
-        self.conf = ConfRepo()
+        self.conf = Configure()
 
     def import_file(self, json_string, file_class):  # 将单个文件导入couchdb, filePath为文件路径
         json_file = json.loads(json_string)
@@ -67,7 +67,7 @@ class Importor:
         connection = MySQLdb.connect(host=host, user=user, passwd=password)
         sql = "insert into json_couch_ids (log_id, couch_id, parent_id, rev, material_id) values" \
               " (%d, '%s', '%s' '%s', '%s')" % (log_id, couch_id, parent_id, rev, material_id)
-        connection.cursor().execute(sql)
+        connection.cursor().run_sql(sql)
         connection.commit()
 
     def __get_id__(self, json_string, id_name):
@@ -126,7 +126,7 @@ class Uploader:
         formator_record_insert_cursor = db.cursor()
 
         sql = "select * from formator_record where json_uploaded=%d" % 0
-        formator_record_fetch_cursor.execute(sql)
+        formator_record_fetch_cursor.run_sql(sql)
         formator_record_fetch_cursor.fetchall()
         if formator_record_fetch_cursor.rowcount == 0:
             logging.info("Couch Uploader: There is no record found to upload")
@@ -141,7 +141,7 @@ class Uploader:
                 continue
 
             formator_record_insert_sql = "update formator_record set json_uploaded=1 where id=%d" % int(_id)
-            formator_record_insert_cursor.execute(formator_record_insert_sql)
+            formator_record_insert_cursor.run_sql(formator_record_insert_sql)
             db.commit()
         db.close()
 

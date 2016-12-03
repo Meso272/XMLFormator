@@ -1,10 +1,10 @@
 import argparse
 import logging
 
-from scripts.ConfRepo import ConfRepo
-from scripts.PersonalGenerator import PersonalXMLGenerator
-from scripts.SqlTrigger import SQLTrigger
-from scripts.CouchdbUploader import Uploader
+from scripts.Configure import ConfRepo
+from scripts.Task.CouchdbUploadTask import Uploader
+from scripts.Task.GeneratePersonalTask import PersonalXMLGenerator
+from scripts.TaskRunner import TaskRunner
 
 if __name__ == "__main__":
     logging.basicConfig(format='%(levelname)s:%(message)s', level=logging.DEBUG)
@@ -40,7 +40,7 @@ if __name__ == "__main__":
     except:
         logging.error("generate personal xml failed")
 
-    sql_trigger = SQLTrigger(host=upload_log_ip, user=upload_log_user, passwd=upload_log_password, db=upload_log_db)
+    sql_trigger = TaskRunner(host=upload_log_ip, user=upload_log_user, passwd=upload_log_password, db=upload_log_db)
     sql_trigger.run()
 
     if not args.media:
