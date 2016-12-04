@@ -4,11 +4,11 @@ import logging
 from _mysql_exceptions import *
 
 
-class Adapter:
+class Adaptor:
     def __init__(self, host, user, password, db):
         try:
             self.connection = MySQLdb.connect(host=host, user=user, password=password, db=db, charset='utf8')
-            self.cursor = self.connection.cursor()
+            self.cursor = self.connection.cursor(cursorClass=MySQLdb.cursors.DictCursor)
         except OperationalError:
             logging.error("can't connect to mysql: %s" % host)
             sys.exit(1)
@@ -20,3 +20,8 @@ class Adapter:
             logging.info("error in sql: %s" % sql)
         except IntegrityError:
             logging.info("检查约束失败: %s" % sql)
+
+    def fetch_data(self):
+        data = self.cursor.fetchall()
+        return data
+

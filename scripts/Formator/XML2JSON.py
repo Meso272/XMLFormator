@@ -5,7 +5,7 @@ import os
 
 import xmltodict
 
-from scripts.formator.JsonFormator import JSONFormator
+from ..Formator.JsonFormator import JSONFormator
 
 
 class xml2Json:

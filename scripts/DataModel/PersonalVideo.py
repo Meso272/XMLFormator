@@ -1,3 +1,5 @@
+import cv2
+
 class PersonalVideo:
     def __init__(self, material_id, title, video_path, vendor_path, keywords, produced_time, hours, minutes, seconds, copyright,
                  mtype, format, brief, price, xml_formated, video_play_path):
@@ -10,7 +12,7 @@ class PersonalVideo:
         self.hours = hours
         self.minutes = minutes
         self.seconds = seconds
-        self.duration = self.getVideoDuration(video_path)
+        self.duration = self.get_video_duration(video_path)
         self.copyright = copyright
         self.mtype = mtype
         self.format = format
@@ -18,3 +20,8 @@ class PersonalVideo:
         self.price = price
         self.xml_formated = xml_formated
         self.video_play_path = video_play_path
+
+    def get_video_duration(self, file_path):
+        cap = cv2.VideoCapture(file_path)
+        return int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
+

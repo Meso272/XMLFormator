@@ -13,7 +13,7 @@ class KeyframeExtractor:
         self.frames = None
 
     def is_black(self, img_path):
-        im = Image.open(img_path).convert('LA')
+        im = Image.open(img_path).run('LA')
         pixels = im.getdata()  # get the pixels as a flattened sequence
         black_thresh = 50
         nblack = 0
