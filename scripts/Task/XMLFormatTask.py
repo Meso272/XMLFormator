@@ -51,7 +51,7 @@ class XMLFormatTask:
                 # use uuid instead of md5
                 uuid_string = str(uuid.uuid4()).replace('-', '')
                 md5 = uuid_string
-            predefined_thumbnail = self.get_predefined_thumbnail(record.frame_extract_path)
+            predefined_thumbnail = self.get_predefined_thumbnail(record.frame_extract_path) if record.frame_extract_path else None
             thumbnail_path = predefined_thumbnail if predefined_thumbnail else thumbnail_path
 
             attribs2add['MD5'] = md5
