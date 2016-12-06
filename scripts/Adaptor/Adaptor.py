@@ -7,15 +7,21 @@ from _mysql_exceptions import *
 class Adaptor:
     def __init__(self, host, user, password, db):
         try:
-            self.connection = MySQLdb.connect(host=host, user=user, password=password, db=db, charset='utf8')
-            self.cursor = self.connection.cursor(cursorClass=MySQLdb.cursors.DictCursor)
+            self.connection = MySQLdb.connect(host=host, user=user, passwd=password, db=db, charset='utf8')
+            self.cursor = self.connection.cursor(cursorclass=MySQLdb.cursors.DictCursor)
         except OperationalError:
             logging.error("can't connect to mysql: %s" % host)
             sys.exit(1)
 
     def run_sql(self, sql):
+        if not sql:
+            logging.warning('empty sql query')
+            return None
         try:
+            logging.debug(sql)
             self.cursor.execute(sql)
+            self.connection.commit()
+            logging.debug("commit sql: %s" % sql)
         except ProgrammingError:
             logging.info("error in sql: %s" % sql)
         except IntegrityError:

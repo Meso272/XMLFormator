@@ -1,0 +1,9 @@
+DEBUG:root:commit sql: select id, md5, thumbnail as thumbnail_path, keyframe as keyframe_path, log_id, xml_formatted, json as json_path, json_uploaded from formatter_record where xml_formatted = 0
+INFO:root:error in sql: select id, title, lowdef_video_upload_path as video_path, video_tag as keywords,bDate as produced_time, duration, format as video_format, brief_info as brief from materialwhere status = 1 and xml_formatted = 0
+DEBUG:root:commit sql: select id, md5, thumbnail as thumbnail_path, keyframe as keyframe_path, log_id, xml_formatted, json as json_path, json_uploaded from formatter_record where xml_formatted = 0
+ERROR:root:commit sql: select id, md5, thumbnail as thumbnail_path, keyframe as keyframe_path, log_id, xml_formatted, json as json_path, json_uploaded from formatter_record where xml_formatted = 0
+INFO:root:error in sql: select id, title, lowdef_video_upload_path as video_path, video_tag as keywords,bDate as produced_time, duration, format as video_format, brief_info as brief from materialwhere status = 1 and xml_formatted = 0
+DEBUG:root:commit sql: select id, md5, thumbnail as thumbnail_path, keyframe as keyframe_path, log_id, xml_formatted, json as json_path, json_uploaded from formatter_record where xml_formatted = 0
+INFO:root:error in sql: select id, title, lowdef_video_upload_path as video_path, video_tag as keywords,bDate as produced_time, duration, format as video_format, brief_info as brief from materialwhere status = 1 and xml_formatted = 0
+DEBUG:root:commit sql: select id, md5, thumbnail as thumbnail_path, keyframe as keyframe_path, log_id, xml_formatted, json as json_path, json_uploaded from formatter_record where xml_formatted = 0
+INFO:root:error in sql: select id, title, lowdef_video_upload_path as video_path, video_tag as keywords,bDate as produced_time, duration, format as video_format, brief_info as brief from materialwhere status = 1 and xml_formatted = 0
