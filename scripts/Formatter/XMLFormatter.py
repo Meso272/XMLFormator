@@ -35,7 +35,7 @@ class XMLFormatter:
         self.raw_xml = etree.tostring(etree.parse(self.xml_path))
 
         XSLFiles = glob.glob(self.xsl_path + "/*.xsl")
-        print(os.path.curdir)
+        print(os.getcwd())
         if len(XSLFiles) == 0:
             logging.error("XMLFormatter. xsl files: %s not exist" % self.xsl_path)
             return 2
