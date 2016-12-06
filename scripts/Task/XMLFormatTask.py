@@ -3,7 +3,7 @@ import uuid
 import os
 
 from ..Formatter.XML2JSON import XML2Json
-from ..Formatter.XMLFormator import XMLFormator
+from ..Formatter.XMLFormatter import XMLFormatter
 from ..VideoExtractor.VideoAttribExtractor import VideoAttribExtractor
 from ..DataSupplier.DataRepository import DataRepository
 from ..Utility.Configure import ConfRepo
@@ -61,7 +61,7 @@ class XMLFormatTask:
             json_path = record.xml_trans_path + '/json'
             xml_path = record.xml_trans_path + '/xml'
             xsl_folder = ConfRepo().get_param("XSL_map", record.vendor_name)
-            xml_formator = XMLFormator(record.xml_upload_path, xsl_folder, xml_path, attribs2add)
+            xml_formator = XMLFormatter(record.xml_upload_path, xsl_folder, xml_path, attribs2add)
             if xml_formator.format() != 0:
                 logging.error("Mediaconvertor: can not generate xml file, please check all path are right.")
                 return None
