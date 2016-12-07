@@ -41,4 +41,4 @@ class XML2Json:
             self.xml2json(xml_file, dst_path)
 
         json_formatter = JSONFormatter()
-        json_formatter.format(json_folder)
+        return json_formatter.format(json_folder)

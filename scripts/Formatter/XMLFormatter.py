@@ -57,8 +57,8 @@ class XMLFormatter:
         for key in self.attribs:
             if key == "MD5":
                 continue
-            root.set(key, self.attribs[key])
-        root.set("VideoID", self.attribs["MD5"])
+            root.set(key, str(self.attribs[key]))
+        root.set("VideoID", str(self.attribs["MD5"]))
         new_all_string = etree.tostring(root, encoding='utf-8', pretty_print=True, xml_declaration=True)
         self.all_xml = new_all_string.decode("utf-8")
         return 0

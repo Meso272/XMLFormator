@@ -19,7 +19,7 @@ class XMLFormatTask:
         insert_sql = "insert into formatter_record " \
                      "(md5, thumbnail, keyframe, log_id, xml_formatted, json, json_uploaded) values "
         update_sql = ''
-        upload_log_sql = ''
+        # upload_log_sql = ''
         for record_id in self.upload_records:
             record = self.upload_records[record_id]
             if not (os.path.isfile(record.video_upload_path) and os.path.isfile(record.xml_upload_path)):
@@ -61,24 +61,24 @@ class XMLFormatTask:
             json_path = record.xml_trans_path + '/json'
             xml_path = record.xml_trans_path + '/xml'
             xsl_folder = ConfRepo().get_param("XSL_map", record.vendor_name)
-            xml_formator = XMLFormatter(record.xml_upload_path, xsl_folder, xml_path, attribs2add)
-            if xml_formator.format() != 0:
+            xml_formatter = XMLFormatter(record.xml_upload_path, xsl_folder, xml_path, attribs2add)
+            if xml_formatter.format() != 0:
                 logging.error("Mediaconvertor: can not generate xml file, please check all path are right.")
                 return None
 
             xml_to_json = XML2Json()
-            xml_to_json.batch_transform(xml_path, json_path)
+            if not xml_to_json.batch_transform(xml_path, json_path):
+                logging.error("json verification failed: %s" % json_path)
+                continue
 
             if not need_update:
-                insert_sql += "('%s', '%s', '%s', %d, %d, '%s', %d), " % \
+                insert_sql += "('%s', '%s', '%s', %d, %d, '%s', %d)," % \
                               (md5, thumbnail_path, keyframes_path, int(record.log_id), 1, json_path, 0)
             else:
                 update_sql += "update formatter_record set xml_formatted=1 where log_id=%d;" % int(record.log_id)
-            upload_log_sql += 'update upload_log set xml_formatted = 1 where id = %d;' % record.log_id
         insert_sql = insert_sql[:-1] + ';'
         AdaptorCenter().get_adaptor('upload_log').run_sql(insert_sql)
         AdaptorCenter().get_adaptor('upload_log').run_sql(update_sql)
-        AdaptorCenter().get_adaptor('upload_log').run_sql(upload_log_sql)
 
     @staticmethod
     def get_predefined_thumbnail(path):

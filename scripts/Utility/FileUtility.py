@@ -8,7 +8,8 @@ class FileUtility(metaclass=Singleton):
         self.buffer = dict()
 
     def write_file(self, path, content):
-        self.buffer[path] = str(content)
+        # print(content)
+        self.buffer[path] = content
 
     @staticmethod
     def read_file(path):
@@ -25,6 +26,7 @@ class FileUtility(metaclass=Singleton):
                 logging.warning('path not exists: %s' % path)
                 os.mkdir(path='/'.join(path.split('/')[:-1]))
             content = self.buffer[path]
+            # print(content)
             with open(path, 'w+', encoding='utf-8') as f:
                 f.write(content)
         self.buffer.clear()

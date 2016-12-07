@@ -29,7 +29,7 @@ class UploaderWorker:
         self.folderPath = folder_path
         self.adaptor = AdaptorCenter().get_adaptor('upload_log')
         self.conf = ConfRepo()
-        self.insert_sql = "insert into json_couch_ids (log_id, couch_id, parent_id, rev, material_id) values"
+        self.insert_sql = "insert into json_couch_ids (log_id, couch_id, parent_id, couch_rev, material_id) values"
 
     def import_file(self, json_string, file_class):  # 将单个文件导入couchdb, filePath为文件路径
         json_file = json.loads(json_string)
@@ -61,7 +61,7 @@ class UploaderWorker:
             return False
 
     def update_sql(self, log_id, couch_id, parent_id, rev, material_id):
-        self.insert_sql += "(%d, '%s', '%s' '%s', '%s')," % (log_id, couch_id, parent_id, rev, material_id)
+        self.insert_sql += "(%d, '%s', '%s', '%s', '%s')," % (log_id, couch_id, parent_id, rev, material_id)
 
     def get_id(self, json_string, id_name):
         json_file = json.loads(json_string)
@@ -94,6 +94,7 @@ class UploaderWorker:
                         return 1
             elif os.path.isdir(path):
                 self.batch_import(path)
+        self.insert_sql = self.insert_sql[:-1] + ';'
         self.adaptor.run_sql(self.insert_sql)
         return 0
 
@@ -103,6 +104,7 @@ class UploadTask:
         couch_server = ConfRepo().get_param('couchdb', 'ip')
         couch_port = ConfRepo().get_param('couchdb', 'port')
         self.adaptor = AdaptorCenter().get_adaptor('upload_log')
+
         self.importer = UploaderWorker(couch_server, couch_port)
 
     def run(self):
@@ -118,12 +120,13 @@ class UploadTask:
         update_sql = ''
         for record in formatter_records:
             _id = record['id']
-            json_content = record['json_path']
+            json_content = record['json']
 
             if 0 != self.importer.batch_import(json_content):
                 logging.warning("failed to upload json file in %s \n" % json_content)
                 continue
 
             update_sql += "update formatter_record set json_uploaded=1 where id=%d;" % int(_id)
+        print(update_sql)
         self.adaptor.run_sql(update_sql)
 

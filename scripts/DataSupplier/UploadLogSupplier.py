@@ -5,7 +5,8 @@ from ..Adaptor.AdaptorCenter import AdaptorCenter
 class UploadLogSupplier:
     def __init__(self):
         self.records = dict()
-        sql = 'select * from upload_log'
+        sql = 'select * from upload_log where log_id not in ' \
+              '(select log_id from formatter_record where xml_formatted = 1)'
         adaptor = AdaptorCenter().get_adaptor('upload_log')
         adaptor.run_sql(sql)
         self.upload_records = adaptor.fetch_data()

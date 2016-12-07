@@ -6,8 +6,8 @@ from .XMLFormatTask import XMLFormatTask
 class TaskCenter:
     def __init__(self):
         self.tasks = list()
-        self.tasks.append(GeneratePersonalTask())
-        self.tasks.append(XMLFormatTask())
+        # self.tasks.append(GeneratePersonalTask())
+        # self.tasks.append(XMLFormatTask())
         self.tasks.append(UploadTask())
 
     def run(self):

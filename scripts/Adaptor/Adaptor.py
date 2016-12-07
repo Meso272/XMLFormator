@@ -14,11 +14,11 @@ class Adaptor:
             sys.exit(1)
 
     def run_sql(self, sql):
+        print(sql)
         if not sql:
             logging.warning('empty sql query')
             return None
         try:
-            logging.debug(sql)
             self.cursor.execute(sql)
             self.connection.commit()
             logging.debug("commit sql: %s" % sql)
@@ -31,3 +31,6 @@ class Adaptor:
         data = self.cursor.fetchall()
         return data
 
+
+if __name__ == '__main__':
+    a = Adaptor('localhost', 'root', '', 'tps')

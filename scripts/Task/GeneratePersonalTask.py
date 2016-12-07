@@ -12,8 +12,8 @@ class GeneratePersonalTask:
 
     @staticmethod
     def generate_xml(personal_video):
-        xml_string = "<?xml version='1.0'?>" \
-                     "<Metadata VendorName='Personal' VendorPath='N/A' VideoPath='%s'>" \
+        xml_string = "<?xml version=\"1.0\"?>" \
+                     "<Metadata VendorName=\"Personal\" VendorPath=\"N/A\" VideoPath=\"%s\">" \
                      "<Program>" \
                      "<Title><ProperTitle>%s</ProperTitle></Title>" \
                      "<Subject>" \
@@ -45,8 +45,9 @@ class GeneratePersonalTask:
         for material_id in self.materials:
             material = self.materials[material_id]
             xml_string = self.generate_xml(material)
-            xml_root = etree.fromstring(xml_string.encode("utf-8"))
-            xml_string = etree.tostring(xml_root, encoding='utf-8', pretty_print=True, xml_declaration=True)
+            # print(xml_string)
+            xml_root = etree.fromstring(xml_string)
+            xml_string = etree.tostring(xml_root, encoding='UTF-8', pretty_print=True, xml_declaration=True).decode('UTF-8')
             xml_path = os.getcwd() + "/../personal_xml/" + material.title + '_' + str(material.duration) + '.xml'
             FileUtility().write_file(xml_path, xml_string)
 
