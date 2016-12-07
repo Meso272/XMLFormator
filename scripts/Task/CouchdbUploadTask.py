@@ -44,7 +44,7 @@ class UploaderWorker:
                 parent_id = couch_id
             elif file_class.startswith('Program'):
                 [couch_id, rev] = self.db_program.save(json_file)
-                parent_id = couch_id
+                parent_id = self.get_id(json_string, "ParentID")
             elif file_class.startswith('Sequence'):
                 [couch_id, rev] = self.db_sequence.save(json_file)
                 parent_id = self.get_id(json_string, "ParentID")
@@ -81,10 +81,10 @@ class UploaderWorker:
                 file_class = path.split('/')[-1]
                 with open(path, "r+", encoding='utf-8') as jsonFile:
                     data = json.load(jsonFile)
-                    if file_class.startswith("Program"):
-                        _id = data["Metadata"]["ParentID"]
-                        data["_id"] = _id
-                    elif file_class.startswith("Video"):
+                    # if file_class.startswith("Program"):
+                    #     _id = data["Metadata"]["ParentID"]
+                    #     data["_id"] = _id
+                    if file_class.startswith("Video"):
                         _id = data["Metadata"]["VideoID"]
                         data["_id"] = _id
                     json_string = json.dumps(data, indent=4, ensure_ascii=False)
@@ -127,6 +127,5 @@ class UploadTask:
                 continue
 
             update_sql += "update formatter_record set json_uploaded=1 where id=%d;" % int(_id)
-        print(update_sql)
         self.adaptor.run_sql(update_sql)
 

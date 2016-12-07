@@ -14,7 +14,6 @@ class Adaptor:
             sys.exit(1)
 
     def run_sql(self, sql):
-        print(sql)
         if not sql:
             logging.warning('empty sql query')
             return None
