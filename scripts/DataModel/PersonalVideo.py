@@ -3,7 +3,7 @@ import cv2
 
 class PersonalVideo:
     def __init__(self, material_id, title, video_path, vendor_path, keywords, produced_time, hours, minutes, seconds,
-                 copyright, mtype, format, brief, price, xml_formatted, video_play_path):
+                 copyright, mtype, format, brief, price, xml_formatted, video_play_path, price_type):
         self.material_id = material_id
         self.title = title
         self.video_path = video_path
@@ -21,6 +21,7 @@ class PersonalVideo:
         self.price = price
         self.xml_formatted = xml_formatted
         self.video_play_path = video_play_path
+        self.price_type = price_type
 
     @staticmethod
     def get_video_duration(file_path):
