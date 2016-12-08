@@ -3,7 +3,7 @@ import json
 import logging
 import os
 import xmltodict
-
+from ..Utility.FileUtility import FileUtility
 from ..Formatter.JsonFormatter import JSONFormatter
 
 
@@ -35,7 +35,7 @@ class XML2Json:
         if len(xml_files) == 0:
             logging.warning("xml2Json. can't find any xml file in %s to transform. Exit\n" % xml_folder)
             return 0
-
+        FileUtility().rm_files_in_dir(json_folder)
         for xml_file in xml_files:
             dst_path = json_folder + '/' + xml_file.split('/')[-1][:-4] + '.json'
             self.xml2json(xml_file, dst_path)

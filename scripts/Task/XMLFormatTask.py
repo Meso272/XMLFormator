@@ -12,10 +12,14 @@ from ..Adaptor.AdaptorCenter import AdaptorCenter
 
 class XMLFormatTask:
     def __init__(self):
+        DataRepository().refresh()
         self.upload_records = DataRepository().get_data('upload_log')
         self.formatter_records = DataRepository().get_data('formatter_record')
 
     def run(self):
+        DataRepository().refresh()
+        self.upload_records = DataRepository().get_data('upload_log')
+        self.formatter_records = DataRepository().get_data('formatter_record')
         insert_sql = "insert into formatter_record " \
                      "(md5, thumbnail, keyframe, log_id, xml_formatted, json, json_uploaded) values "
         update_sql = ''

@@ -65,7 +65,7 @@ class GeneratePersonalTask:
                                  (vendor_name, xml_path, xml_trans_path, video_path, video_cut_path,
                                   frame_extract_path, vendor_path, price, _copyright, video_play_path, material_id)
             material_update_sql += "update material set xml_formatted = 1 where id=%d;" % material_id
-        FileUtility().flush()
+        FileUtility().write_flush()
         upload_insert_sql = upload_insert_sql[:-1] + ';'
         AdaptorCenter().get_adaptor('upload_log').run_sql(upload_insert_sql)
         AdaptorCenter().get_adaptor('tps').run_sql(material_update_sql)

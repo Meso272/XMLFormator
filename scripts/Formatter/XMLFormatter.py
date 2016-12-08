@@ -2,6 +2,7 @@ import glob
 import logging
 import os
 from lxml import etree, objectify
+from ..Utility.FileUtility import FileUtility
 
 
 class XMLFormatter:
@@ -86,6 +87,7 @@ class XMLFormatter:
         return 0
 
     def __write_xml__(self):
+        FileUtility().rm_files_in_dir(self.dst_folder)
         for tag_name in self.ready_to_write:
             for i in range(len(self.ready_to_write[tag_name])):
                 ele_string = self.ready_to_write[tag_name][i]
