@@ -1,8 +1,9 @@
 from .Adaptor import Adaptor
-from ..utility.Configure import ConfRepo
+from ..Utility.Configure import ConfRepo
+from ..Utility.Singleton import Singleton
 
 
-class AdaptorCenter:
+class AdaptorCenter(metaclass=Singleton):
     def __init__(self):
         self.adaptors = dict()
         upload_log_adaptor = Adaptor(ConfRepo().get_param('upload_log', 'ip'),

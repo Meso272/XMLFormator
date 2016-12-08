@@ -48,6 +48,7 @@ sklearn==0.0
 stormssh==0.6.8
 termcolor==1.1.0
 Twisted==16.1.1
+virtualenv==15.1.0
 w3lib==1.14.2
 websockets==3.2
 Werkzeug==0.11.3

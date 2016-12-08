@@ -1,8 +1,10 @@
 class StringUtility:
-    def retain_alphabeta(self, string):
+    @staticmethod
+    def retain_alphabet(string):
         return ''.join(char for char in string if char.isalpha())
 
-    def trim_title(self, title):
+    @staticmethod
+    def trim_title(title):
         title = title.replace("/", "-")
         title = title.replace("<", "")
         title = title.replace(" ", "_")

@@ -202,22 +202,23 @@
 
                 <!-- 其他责任者 -->
                 <Contributor>
-                    <xsl:for-each
-                            select="*/TopUnit/Attributes/*/AttributeItem[ItemName='其他责任者']/AttributeItem[ItemName='其他责任者描述']">
-                        <NameofContributor>
-                            <xsl:value-of select="AttributeItem[ItemName='其他责任者名称']/Value"/>
-                        </NameofContributor>
-                        <xsl:for-each select="AttributeItem[ItemName='其他责任者并列名']">
-                            <ParallelNameofContributor>
-                                <xsl:value-of select="Value"/>
-                            </ParallelNameofContributor>
-                        </xsl:for-each>
-                        <Role>
-                            <xsl:value-of select="AttributeItem[ItemName='责任方式']/Value"/>
-                        </Role>
-                        <OtherInformation>
-                            <xsl:value-of select="AttributeItem[ItemName='其他信息']/Value"/>
-                        </OtherInformation>
+                    <xsl:for-each select="*/TopUnit/Attributes/*/AttributeItem[ItemName='其他责任者']/AttributeItem[ItemName='其他责任者描述']">
+                        <DescriptionofContributor>
+                            <NameofContributor>
+                                <xsl:value-of select="AttributeItem[ItemName='其他责任者名称']/Value"/>
+                            </NameofContributor>
+                            <xsl:for-each select="AttributeItem[ItemName='其他责任者并列名']">
+                                <ParallelNameofContributor>
+                                    <xsl:value-of select="Value"/>
+                                </ParallelNameofContributor>
+                            </xsl:for-each>
+                            <Role>
+                                <xsl:value-of select="AttributeItem[ItemName='责任方式']/Value"/>
+                            </Role>
+                            <OtherInformation>
+                                <xsl:value-of select="AttributeItem[ItemName='其他信息']/Value"/>
+                            </OtherInformation>
+                        </DescriptionofContributor>
                     </xsl:for-each>
                 </Contributor>
 

@@ -12,7 +12,8 @@ class KeyframeExtractor:
     def __init__(self):
         self.frames = None
 
-    def is_black(self, img_path):
+    @staticmethod
+    def is_black(img_path):
         im = Image.open(img_path).run('LA')
         pixels = im.getdata()  # get the pixels as a flattened sequence
         black_thresh = 50
@@ -40,9 +41,9 @@ class KeyframeExtractor:
             else:
                 self.frames = hist
 
-    def get_k_img(self, imgFolder, k=3):
+    def get_k_img(self, img_folder, k=3):
         if not self.frames:
-            self.calc_hist(imgFolder)
+            self.calc_hist(img_folder)
         model = KMeans(k)
         model.fit(self.frames)
         labels = model.labels_
@@ -57,17 +58,18 @@ class KeyframeExtractor:
             else:
                 dists[labels[i]] = dist
                 imgs[labels[i]] = i
-        files = os.listdir(imgFolder)
+        files = os.listdir(img_folder)
         res = list()
         for imgid in imgs:
-            img = cv2.imread(os.path.join(imgFolder, files[imgid]))
+            img = cv2.imread(os.path.join(img_folder, files[imgid]))
             # cv2.imshow('image'+str(imgid), img)
-            res.append(os.path.join(imgFolder, files[imgid]))
+            res.append(os.path.join(img_folder, files[imgid]))
         # cv2.waitKey(0)
         # cv2.destroyAllWindows()
         return res
 
-    def eraseFiles(self, path):
+    @staticmethod
+    def erase_files(path):
         folder = path
         for the_file in os.listdir(folder):
             file_path = os.path.join(folder, the_file)
@@ -78,7 +80,7 @@ class KeyframeExtractor:
             except Exception as e:
                 print(e)
 
-    def eraseBlackImg(self, path):
+    def erase_blackimg(self, path):
         folder = path
         for the_file in os.listdir(folder):
             file_path = os.path.join(folder, the_file)
@@ -94,12 +96,12 @@ class KeyframeExtractor:
             os.makedirs(destFolder + '/frame')
         if not os.path.exists(destFolder + '/keyFrame'):
             os.makedirs(destFolder + '/keyFrame')
-        self.eraseFiles(destFolder + '/frame')
-        self.eraseFiles(destFolder + '/keyFrame')
+        self.erase_files(destFolder + '/frame')
+        self.erase_files(destFolder + '/keyFrame')
         videoPath = "\"" + videoPath + "\""
         subprocess.call(['ffmpeg', '-loglevel', '16', '-i', videoPath, '-vf', 'select=eq(pict_type\,PICT_TYPE_I)',
                          '-vsync', '2', '-s', '800x600', '-f', 'image2', destFolder + '/frame' + '/frame-%02d.jpg'])
-        self.eraseBlackImg(destFolder + '/frame')
+        self.erase_blackimg(destFolder + '/frame')
         imgs = self.get_k_img(destFolder + '/frame', k)
         for img in imgs:
             copyfile(img, destFolder + '/keyFrame/' + img.split('/')[-1])

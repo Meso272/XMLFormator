@@ -1,12 +1,13 @@
-from .FormatorRecordSupplier import FormatorRecordSupplier
+from .FormattedRecordSupplier import FormatterRecordSupplier
 from .MaterialSupplier import MaterialSupplier
 from .UploadLogSupplier import UploadLogSupplier
+from ..Utility.Singleton import Singleton
 
 
-class DataRepository:
+class DataRepository(metaclass=Singleton):
     def __init__(self):
         self.data = dict()
-        self.data['formator_record'] = FormatorRecordSupplier().get_formator_records()
+        self.data['formatter_record'] = FormatterRecordSupplier().get_formatter_records()
         self.data['personal_record'] = MaterialSupplier().get_personal_records()
         self.data['upload_log'] = UploadLogSupplier().get_upload_log()
 
@@ -14,3 +15,8 @@ class DataRepository:
         if key in self.data:
             return self.data[key]
         return None
+
+    def refresh(self):
+        self.data['formatter_record'] = FormatterRecordSupplier().get_formatter_records()
+        self.data['personal_record'] = MaterialSupplier().get_personal_records()
+        self.data['upload_log'] = UploadLogSupplier().get_upload_log()

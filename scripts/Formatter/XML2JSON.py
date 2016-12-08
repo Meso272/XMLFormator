@@ -2,14 +2,14 @@ import glob
 import json
 import logging
 import os
-
 import xmltodict
+from ..Utility.FileUtility import FileUtility
+from ..Formatter.JsonFormatter import JSONFormatter
 
-from ..Formator.JsonFormator import JSONFormator
 
-
-class xml2Json:
-    def xml2json(self, xml_path, dest_path, xml_attribs=True):
+class XML2Json:
+    @staticmethod
+    def xml2json(xml_path, dest_path, xml_attribs=True):
         with open(xml_path, "rb") as f:  # notice the "rb" mode
             d = xmltodict.parse(f, xml_attribs=xml_attribs, encoding='utf-8', attr_prefix='')
             if not d:
@@ -35,10 +35,10 @@ class xml2Json:
         if len(xml_files) == 0:
             logging.warning("xml2Json. can't find any xml file in %s to transform. Exit\n" % xml_folder)
             return 0
-
+        FileUtility().rm_files_in_dir(json_folder)
         for xml_file in xml_files:
-            dest_path = json_folder + '/' + xml_file.split('/')[-1][:-4] + '.json'
-            self.xml2json(xml_file, dest_path)
+            dst_path = json_folder + '/' + xml_file.split('/')[-1][:-4] + '.json'
+            self.xml2json(xml_file, dst_path)
 
-        json_formator = JSONFormator()
-        json_formator.format(json_folder)
+        json_formatter = JSONFormatter()
+        return json_formatter.format(json_folder)

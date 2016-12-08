@@ -1,16 +1,10 @@
 import logging
-from scripts.Task.XMLFormatTask import XMLFormatTask
-from scripts.Task.CouchdbUploadTask import Uploader
-from scripts.Task.GeneratePersonalTask import GeneratePersonalTask
+from scripts.Task.TaskCenter import TaskCenter
+from scripts.Utility.Configure import ConfRepo
 
 if __name__ == "__main__":
-    try:
-        generator = GeneratePersonalTask()
-        generator.run()
-        formator = XMLFormatTask()
-        formator.run()
-        uploader = Uploader()
-        uploader.run()
-    except:
-        logging.error("generate personal xml failed")
+    # logging.basicConfig(level=ConfRepo().get_param('DEFAULT', 'logging_level'))
+    logging.basicConfig(filename='formatter.log', level=ConfRepo().get_param('DEFAULT', 'logging_level'))
+    task_center = TaskCenter()
+    task_center.run()
 
