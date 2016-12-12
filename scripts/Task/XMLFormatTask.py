@@ -86,6 +86,8 @@ class XMLFormatTask:
 
     @staticmethod
     def get_predefined_thumbnail(path):
+        if os.path.isfile(path):
+            return path
         for the_file in sorted(os.listdir(path)):
             thumbnail_path = os.path.join(path, the_file)
             if os.path.isfile(thumbnail_path) and (the_file.endswith(".jpg") or the_file.endswith(".jpeg")):
