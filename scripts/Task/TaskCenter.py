@@ -8,7 +8,7 @@ class TaskCenter:
     def __init__(self):
         self.tasks = list()
         logging.info("generating personal xml...")
-        self.tasks.append(GeneratePersonalTask())
+#        self.tasks.append(GeneratePersonalTask())
         logging.info("formatting xml...")
         self.tasks.append(XMLFormatTask())
         logging.info("uploading json...")

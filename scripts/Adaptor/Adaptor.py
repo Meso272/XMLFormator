@@ -12,6 +12,7 @@ class Adaptor:
         except OperationalError:
             logging.error("can't connect to mysql: %s" % host)
             sys.exit(1)
+        self.success = False
 
     def run_sql(self, sql):
         if not sql:
@@ -21,16 +22,22 @@ class Adaptor:
             self.cursor.execute(sql)
             self.connection.commit()
             logging.debug("commit sql: %s" % sql)
+            self.success = True
         except ProgrammingError:
             logging.error("error in sql: %s" % sql)
+            self.success = False
         except IntegrityError:
             logging.error("检查约束失败: %s" % sql)
+            self.success = False
         except OperationalError:
             logging.error("执行失败, 请检查列名是否存在: %s" % sql)
             logging.error(OperationalError)
+            self.success = False
 
     def fetch_data(self):
-        data = self.cursor.fetchall()
+        data = None
+        if self.success:
+            data = self.cursor.fetchall()
         return data
 
 

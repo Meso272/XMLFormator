@@ -13,6 +13,8 @@ class MaterialSupplier:
               'brief_info, price, xml_formatted, pricing_type from material where status = 1 and xml_formatted = 0;'
         adaptor.run_sql(sql)
         self.records = adaptor.fetch_data()
+        if self.records is None:
+            return
         for row in self.records:
             record = PersonalVideo(row['id'], StringUtility.trim_title(row['title']), row['video_path'],
                                    row['vendor_path'], row['keywords'], row['produced_time'], row['hours'],
