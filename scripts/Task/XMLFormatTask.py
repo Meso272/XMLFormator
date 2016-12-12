@@ -26,9 +26,15 @@ class XMLFormatTask:
         # upload_log_sql = ''
         for record_id in self.upload_records:
             record = self.upload_records[record_id]
-            if not (os.path.isfile(record.video_upload_path) and os.path.isfile(record.xml_upload_path)):
-                logging.error('video or xml file not found, log_id = %d' % record.log_id)
+            if not os.path.isfile(record.xml_upload_path):
+                logging.error("xml file not found, log_id = %d, path = '%s'" %
+                              (record.log_id, record.xml_upload_path))
                 continue
+            if not os.path.isfile(record.video_upload_path):
+                logging.error("video file not found, log_id = %d, path = '%s'" %
+                              (record.log_id, record.video_upload_path))
+                continue
+
             need_update = False
             attribs2add = dict()
             attribs2add["VideoPath"] = record.video_upload_path

@@ -8,7 +8,7 @@ class DataRepository(metaclass=Singleton):
     def __init__(self):
         self.data = dict()
         self.data['formatter_record'] = FormatterRecordSupplier().get_formatter_records()
-        self.data['personal_record'] = MaterialSupplier().get_personal_records()
+        # self.data['personal_record'] = MaterialSupplier().get_personal_records()
         self.data['upload_log'] = UploadLogSupplier().get_upload_log()
 
     def get_data(self, key):
@@ -18,5 +18,5 @@ class DataRepository(metaclass=Singleton):
 
     def refresh(self):
         self.data['formatter_record'] = FormatterRecordSupplier().get_formatter_records()
-        self.data['personal_record'] = MaterialSupplier().get_personal_records()
+        # self.data['personal_record'] = MaterialSupplier().get_personal_records()
         self.data['upload_log'] = UploadLogSupplier().get_upload_log()
