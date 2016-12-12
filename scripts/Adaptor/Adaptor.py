@@ -22,9 +22,12 @@ class Adaptor:
             self.connection.commit()
             logging.debug("commit sql: %s" % sql)
         except ProgrammingError:
-            logging.info("error in sql: %s" % sql)
+            logging.error("error in sql: %s" % sql)
         except IntegrityError:
-            logging.info("检查约束失败: %s" % sql)
+            logging.error("检查约束失败: %s" % sql)
+        except OperationalError:
+            logging.error("执行失败, 请检查列名是否存在: %s" % sql)
+            logging.error(OperationalError)
 
     def fetch_data(self):
         data = self.cursor.fetchall()
