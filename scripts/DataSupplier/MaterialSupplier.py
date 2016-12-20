@@ -10,7 +10,7 @@ class MaterialSupplier:
         self.personal_records = dict()
         sql = 'select id, title, lowdef_video_upload_path as video_path, highdef_video_upload_path as vendor_path, ' \
               'video_tag as keywords, bDate as produced_time, hours, minutes, seconds, copyright, mtype, format, ' \
-              'brief_info, price, xml_formatted, pricing_type from material where status = 1 and xml_formatted = 0;'
+              'brief_info, price, xml_formatted, pricing_type from material where on_shelf = 1 and xml_formatted = 0;'
         adaptor.run_sql(sql)
         self.records = adaptor.fetch_data()
         if self.records is None:
