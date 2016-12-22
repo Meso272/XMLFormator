@@ -72,6 +72,9 @@ class XMLFormatTask:
             json_path = record.xml_trans_path + '/json'
             xml_path = record.xml_trans_path + '/xml'
             xsl_folder = ConfRepo().get_param("XSL_map", record.vendor_name)
+            if not xsl_folder:
+                logging.error("vendor: %s not supported" % record.vendor_name)
+                continue
             xml_formatter = XMLFormatter(record.xml_upload_path, xsl_folder, xml_path, attribs2add)
             if xml_formatter.format() != 0:
                 logging.error("Mediaconvertor: can not generate xml file, please check all path are right.")
