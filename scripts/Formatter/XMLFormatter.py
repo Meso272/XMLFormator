@@ -33,7 +33,7 @@ class XMLFormatter:
             logging.error("XMLFormatter. xml file: %s not exists" % self.xml_path)
             return 1
 
-        self.raw_xml = etree.tostring(etree.parse(self.xml_path))
+        self.raw_xml = etree.tostring(etree.parse(self.xml_path), encoding='unicode')
 
         XSLFiles = glob.glob(self.xsl_path + "/*.xsl")
         print(os.getcwd())
@@ -212,7 +212,8 @@ class XMLFormatter:
     def __transform__(self, xsl_string):
         xsl_root = etree.fromstring(xsl_string)
         transformer = etree.XSLT(xsl_root)
-        root = etree.fromstring(self.raw_xml)
+        utf8_parser = etree.XMLParser(encoding='utf-8')
+        root = etree.fromstring(self.raw_xml.encode('utf-8'), parser=utf8_parser)
 
         for elem in root.getiterator():
             if not hasattr(elem.tag, 'find'): continue  # (1)
