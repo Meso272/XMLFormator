@@ -17,6 +17,7 @@ class XMLFormatTask:
         self.formatter_records = DataRepository().get_data('formatter_record')
 
     def run(self):
+        logging.info("formatting xml...")
         DataRepository().refresh()
         self.upload_records = DataRepository().get_data('upload_log')
         self.formatter_records = DataRepository().get_data('formatter_record')

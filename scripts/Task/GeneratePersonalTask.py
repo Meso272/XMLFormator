@@ -37,6 +37,7 @@ class GeneratePersonalTask:
         return xml_string
 
     def run(self):
+        logging.info("generating personal xml...")
         upload_insert_sql = "insert into upload_log " \
                                 "(vendor_name, upload_time, uploader_name, xml_upload_path, xml_trans_path," \
                                 "video_upload_path, video_cut_path, frame_extract_path, vendor_path, video_price, " \
@@ -45,7 +46,6 @@ class GeneratePersonalTask:
         for material_id in self.materials:
             material = self.materials[material_id]
             xml_string = self.generate_xml(material)
-            # print(xml_string)
             xml_root = etree.fromstring(xml_string)
             xml_string = etree.tostring(xml_root, encoding='UTF-8', pretty_print=True, xml_declaration=True).decode('UTF-8')
             xml_path = os.getcwd() + "/../personal_xml/" + material.title + '_' + str(material.duration) + '.xml'

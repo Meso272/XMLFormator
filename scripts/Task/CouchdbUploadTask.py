@@ -108,6 +108,7 @@ class UploadTask:
         self.importer = UploaderWorker(couch_server, couch_port)
 
     def run(self):
+        logging.info("Uploading json file...")
         cursor = self.adaptor.cursor
 
         sql = "select * from formatter_record where json_uploaded=%d" % 0
