@@ -11,6 +11,5 @@ class TaskCenter:
         self.tasks.append(UploadTask())
 
     def run(self):
-        print("\n")
         for task in self.tasks:
             task.run()
