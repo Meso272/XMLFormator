@@ -22,7 +22,7 @@
                         </SubjectTerm>
                     </xsl:for-each>
                     <Keyword>
-                        <xsl:value-of select="keyword"/>
+                        <xsl:value-of select="Keyword"/>
                     </Keyword>
                 </Subject>
                 <Description>
