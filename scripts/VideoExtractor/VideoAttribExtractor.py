@@ -19,7 +19,6 @@ class VideoAttribExtractor:
         self.thumbnail_path = ''
 
         if not os.path.exists(self.thumbnail_folder):
-            print(self.thumbnail_folder)
             os.makedirs(self.thumbnail_folder)
 
         if not os.path.exists(self.keyframes_folder):
