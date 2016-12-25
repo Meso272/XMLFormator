@@ -79,7 +79,7 @@ class XMLFormatTask:
             xml_formatter = XMLFormatter(record.xml_upload_path, xsl_folder, xml_path, attribs2add)
             if xml_formatter.format() != 0:
                 logging.error("Mediaconvertor: can not generate xml file, please check all path are right.")
-                return None
+                continue
 
             xml_to_json = XML2Json()
             if not xml_to_json.batch_transform(xml_path, json_path):
