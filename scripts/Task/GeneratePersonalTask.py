@@ -42,6 +42,7 @@ class GeneratePersonalTask:
                                 "(vendor_name, upload_time, uploader_name, xml_upload_path, xml_trans_path," \
                                 "video_upload_path, video_cut_path, frame_extract_path, vendor_path, video_price, " \
                                 "video_copyright, video_play_path, material_id, video_price_type) values "
+        original_len = len(upload_insert_sql)
         material_update_sql = ""
         for material_id in self.materials:
             material = self.materials[material_id]
@@ -68,5 +69,9 @@ class GeneratePersonalTask:
             material_update_sql += "update material set xml_formatted = 1 where id=%d;" % material_id
         FileUtility().write_flush()
         upload_insert_sql = upload_insert_sql[:-1] + ';'
-        AdaptorCenter().get_adaptor('upload_log').run_sql(upload_insert_sql)
-        AdaptorCenter().get_adaptor('tps').run_sql(material_update_sql)
+        if len(upload_insert_sql) != original_len:
+            AdaptorCenter().get_adaptor('upload_log').run_sql(upload_insert_sql)
+        else:
+            logging.info("no material records need to update")
+        if material_update_sql:
+            AdaptorCenter().get_adaptor('tps').run_sql(material_update_sql)

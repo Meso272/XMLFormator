@@ -23,6 +23,7 @@ class XMLFormatTask:
         self.formatter_records = DataRepository().get_data('formatter_record')
         insert_sql = "insert into formatter_record " \
                      "(md5, thumbnail, keyframe, log_id, xml_formatted, json, json_uploaded) values "
+        original_len = len(insert_sql)
         update_sql = ''
         # upload_log_sql = ''
         for record_id in self.upload_records:
@@ -78,7 +79,7 @@ class XMLFormatTask:
                 continue
             xml_formatter = XMLFormatter(record.xml_upload_path, xsl_folder, xml_path, attribs2add)
             if xml_formatter.format() != 0:
-                logging.error("Mediaconvertor: can not generate xml file, please check all path are right.")
+                logging.error("can not generate xml file, please check all path are right.")
                 continue
 
             xml_to_json = XML2Json()
@@ -92,8 +93,12 @@ class XMLFormatTask:
             else:
                 update_sql += "update formatter_record set xml_formatted=1 where log_id=%d;" % int(record.log_id)
         insert_sql = insert_sql[:-1] + ';'
-        AdaptorCenter().get_adaptor('upload_log').run_sql(insert_sql)
-        AdaptorCenter().get_adaptor('upload_log').run_sql(update_sql)
+        if len(insert_sql) != original_len:
+            AdaptorCenter().get_adaptor('upload_log').run_sql(insert_sql)
+        else:
+            logging.info("no upload_log records need to process")
+        if update_sql:
+            AdaptorCenter().get_adaptor('upload_log').run_sql(update_sql)
 
     @staticmethod
     def get_predefined_thumbnail(path):

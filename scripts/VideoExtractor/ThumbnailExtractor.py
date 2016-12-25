@@ -39,7 +39,7 @@ class ThumbnailExtractor:
         :returns: The thumbnail data (binary string)
         """
         if not os.path.exists(infile):
-            logging.error("ThumbnailExtractor. Video file not found")
+            logging.error("Video file not found")
             return 1
     
         ffmpeg = self.which(executable or "ffmpeg")

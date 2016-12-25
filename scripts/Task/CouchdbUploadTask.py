@@ -33,7 +33,7 @@ class UploaderWorker:
 
     def import_file(self, json_string, file_class):  # 将单个文件导入couchdb, filePath为文件路径
         json_file = json.loads(json_string)
-        log_id = self.get_id(json_string, 'LogID')
+        log_id = int(self.get_id(json_string, 'LogID'))
         material_id = self.get_id(json_string, 'MaterialID')
         couch_id = ""
         rev = ""
@@ -96,6 +96,7 @@ class UploaderWorker:
                 self.batch_import(path)
         self.insert_sql = self.insert_sql[:-1] + ';'
         self.adaptor.run_sql(self.insert_sql)
+        self.insert_sql = "insert into json_couch_ids (log_id, couch_id, parent_id, couch_rev, material_id) values"
         return 0
 
 
@@ -115,7 +116,7 @@ class UploadTask:
         self.adaptor.run_sql(sql)
         formatter_records = self.adaptor.fetch_data()
         if cursor.rowcount == 0:
-            logging.info("Couch Uploader: There is no record found to upload")
+            logging.info("There is no record found to upload")
             sys.exit(0)
 
         update_sql = ''
@@ -124,7 +125,7 @@ class UploadTask:
             json_content = record['json']
 
             if 0 != self.importer.batch_import(json_content):
-                logging.warning("failed to upload json file in %s \n" % json_content)
+                logging.warning("failed to upload json file in %s" % json_content)
                 continue
 
             update_sql += "update formatter_record set json_uploaded=1 where id=%d;" % int(_id)

@@ -13,12 +13,12 @@ class XML2Json:
         with open(xml_path, "rb") as f:  # notice the "rb" mode
             d = xmltodict.parse(f, xml_attribs=xml_attribs, encoding='utf-8', attr_prefix='')
             if not d:
-                logging.error("xml2Json. xmltodict failed for file: %s. Exit" % xml_path)
+                logging.error("xmltodict failed for file: %s. Exit" % xml_path)
                 return 1
 
             string = json.dumps(d, indent=4, ensure_ascii=False)
             if not string:
-                logging.error("xml2Json. json dumps failed for file: %s. Exit" % xml_path)
+                logging.error("json dumps failed for file: %s. Exit" % xml_path)
                 return 2
 
             with open(dest_path, 'w+', encoding='utf-8') as outFile:
@@ -29,11 +29,11 @@ class XML2Json:
     def batch_transform(self, xml_folder, json_folder):
         if not os.path.exists(json_folder):
             os.makedirs(json_folder)
-            logging.info("xml2Json. Create jsonFolder: %s\n" % json_folder)
+            logging.info("Create jsonFolder: %s" % json_folder)
 
         xml_files = glob.glob(xml_folder + "/*.xml")
         if len(xml_files) == 0:
-            logging.warning("xml2Json. can't find any xml file in %s to transform. Exit\n" % xml_folder)
+            logging.warning("can't find any xml file in %s to transform. Exit" % xml_folder)
             return 0
         FileUtility().rm_files_in_dir(json_folder)
         for xml_file in xml_files:

@@ -3,7 +3,7 @@ import logging
 import os
 from lxml import etree, objectify
 from ..Utility.FileUtility import FileUtility
-
+from datetime import datetime, date, time
 
 class XMLFormatter:
 
@@ -30,14 +30,14 @@ class XMLFormatter:
 
     def __get_files__(self):
         if not os.path.isfile(self.xml_path):
-            logging.error("XMLFormatter. xml file: %s not exists" % self.xml_path)
+            logging.error("xml file: %s not exists" % self.xml_path)
             return 1
 
         self.raw_xml = etree.tostring(etree.parse(self.xml_path), encoding='unicode')
 
         XSLFiles = glob.glob(self.xsl_path + "/*.xsl")
         if len(XSLFiles) == 0:
-            logging.error("XMLFormatter. xsl files: %s not exist" % self.xsl_path)
+            logging.error("xsl files: %s not exist" % self.xsl_path)
             return 2
 
         for xsl in XSLFiles:
@@ -45,13 +45,13 @@ class XMLFormatter:
 
     def __add_attributes__(self):
         if not self.all_xml:
-            logging.error("XMLFormatter. all_xml file not read in")
+            logging.error("all_xml file not read in")
             return 1
 
         root = etree.fromstring(self.all_xml)
 
         if len(self.attribs) == 0:
-            logging.warning("XMLFormatter. no attribs to add")
+            logging.warning("no attribs to add")
             return 0
 
         for key in self.attribs:
@@ -109,22 +109,25 @@ class XMLFormatter:
             formatted_xml = self.trim_time(formatted_xml)
             xml_strings.append(formatted_xml)
         if not xml_strings:
-            logging.warning(
-                "XMLFormator: there is no xmlString for file: %s, maybe unsupported structure" % self.xml_path)
+            logging.warning( "there is no xmlString for file: %s, maybe unsupported structure" % self.xml_path)
         return xml_strings
 
     @staticmethod
     def trim_long(time):
-        new_date = ''
-        if not time or time == '无':
+        try:
+            dt = datetime.strptime(time, "%Y/%m/%d %H:%M:%S")
+            return dt.isoformat(' ')
+        except ValueError:
+            new_date = ''
+            if not time or time == '无':
+                return new_date
+            new_date = time
+            new_date.replace('年', '-')
+            new_date.replace('日', '')
+            new_date.replace('月', '-')
+            if new_date.find(':') == -1:
+                new_date += ' 00:00:00'
             return new_date
-        new_date = time
-        new_date.replace('年', '-')
-        new_date.replace('日', '')
-        new_date.replace('月', '-')
-        if new_date.find(':') == -1:
-            new_date += ' 00:00:00'
-        return new_date
 
     @staticmethod
     def trim_short(time):
