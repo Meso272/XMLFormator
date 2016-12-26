@@ -26,6 +26,7 @@ class XMLFormatTask:
         original_len = len(insert_sql)
         update_sql = ''
         # upload_log_sql = ''
+        material_thumbnail_sql = ''
         for record_id in self.upload_records:
             record = self.upload_records[record_id]
             logging.debug(record.xml_upload_path)
@@ -92,6 +93,9 @@ class XMLFormatTask:
                               (md5, thumbnail_path, keyframes_path, int(record.log_id), 1, json_path, 0)
             else:
                 update_sql += "update formatter_record set xml_formatted=1 where log_id=%d;" % int(record.log_id)
+            if int(record.material_id) != -1:
+                material_thumbnail_sql += "update material set thumbnail = '%s' where id = %d;" % \
+                                         (thumbnail_path, int(record.material_id))
         insert_sql = insert_sql[:-1] + ';'
         if len(insert_sql) != original_len:
             AdaptorCenter().get_adaptor('upload_log').run_sql(insert_sql)
@@ -99,6 +103,8 @@ class XMLFormatTask:
             logging.info("no upload_log records need to process")
         if update_sql:
             AdaptorCenter().get_adaptor('upload_log').run_sql(update_sql)
+        if material_thumbnail_sql:
+            AdaptorCenter().get_adaptor('tps').run_sql(material_thumbnail_sql)
 
     @staticmethod
     def get_predefined_thumbnail(path):

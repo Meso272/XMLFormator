@@ -25,6 +25,7 @@ class Adaptor:
             self.success = True
         except ProgrammingError:
             logging.error("error in sql: %s" % sql)
+            print(ProgrammingError)
             self.success = False
         except IntegrityError:
             logging.error("检查约束失败: %s" % sql)

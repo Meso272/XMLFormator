@@ -128,6 +128,6 @@ class UploadTask:
                 logging.warning("failed to upload json file in %s" % json_content)
                 continue
 
-            update_sql += "update formatter_record set json_uploaded=1 where id=%d;" % int(_id)
-        self.adaptor.run_sql(update_sql)
+            update_sql = "update formatter_record set json_uploaded=1 where id=%d;" % int(_id)
+            self.adaptor.run_sql(update_sql)
 
