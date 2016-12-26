@@ -119,7 +119,7 @@ class XMLFormatTask:
         for num_name in num_name_list:
             string_name_list.append(str(num_name) + '.jpg')
         for the_file in string_name_list:
-        for the_file in sorted(os.listdir(path)):
+        # for the_file in sorted(os.listdir(path)):
             thumbnail_path = os.path.join(path, the_file)
             if os.path.isfile(thumbnail_path) and (the_file.endswith(".jpg") or the_file.endswith(".jpeg")):
                 return thumbnail_path
