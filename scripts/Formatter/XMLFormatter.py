@@ -127,6 +127,7 @@ class XMLFormatter:
             new_date.replace('月', '-')
             if new_date.find(':') == -1:
                 new_date += ' 00:00:00'
+            new_date = new_date.replace('/', '-')
             return new_date
 
     @staticmethod
