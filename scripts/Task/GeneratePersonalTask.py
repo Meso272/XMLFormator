@@ -41,7 +41,7 @@ class GeneratePersonalTask:
         upload_insert_sql = "insert into upload_log " \
                                 "(vendor_name, upload_time, uploader_name, xml_upload_path, xml_trans_path," \
                                 "video_upload_path, video_cut_path, frame_extract_path, vendor_path, video_price, " \
-                                "video_copyright, video_play_path, material_id, video_price_type) values "
+                                "video_copyright, video_play_path, material_id, video_price_type, frame_extract_path) values "
         original_len = len(upload_insert_sql)
         material_update_sql = ""
         for material_id in self.materials:
@@ -62,10 +62,10 @@ class GeneratePersonalTask:
             _copyright = material.copyright
             video_play_path = material.video_play_path
             price = material.price if material.price else 1
-            upload_insert_sql += "('%s', NOW(), 'Admin', '%s', '%s', '%s', '%s', '%s', '%s', %d, '%s', '%s', %d, %d)," % \
+            upload_insert_sql += "('%s', NOW(), 'Admin', '%s', '%s', '%s', '%s', '%s', '%s', %d, '%s', '%s', %d, %d, '%s')," % \
                                  (vendor_name, xml_path, xml_trans_path, video_path, video_cut_path,
                                   frame_extract_path, vendor_path, price, _copyright, video_play_path,
-                                  material_id, material.price_type)
+                                  material_id, material.price_type, material.thumbnail)
             material_update_sql += "update material set xml_formatted = 1 where id=%d;" % material_id
         FileUtility().write_flush()
         upload_insert_sql = upload_insert_sql[:-1] + ';'

@@ -110,11 +110,14 @@ class XMLFormatTask:
     def get_predefined_thumbnail(path):
         if os.path.isfile(path):
             return path
+        if not os.path.exists(path):
+            return None
         string_name_list = os.listdir(path)
         num_name_list = list()
         try:
             for string_name in string_name_list:
-               num_name_list.append(int(string_name.split('.')[0]))
+                if string_name.endswith('jpg') or string_name.endswith('jpeg'):
+                    num_name_list.append(int(string_name.split('.')[0]))
             num_name_list.sort()
             string_name_list.clear()
             for num_name in num_name_list:
