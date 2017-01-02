@@ -12,9 +12,9 @@
                     </ProperTitle>
                     <!-- 并列正题名 -->
                     <xsl:for-each select="*/TopUnit/Attributes/*/*/AttributeItem[ItemName='并列正题名']">
-                        <ParallelProperTile>
+                        <ParallelProperTitle>
                             <xsl:value-of select="Value"></xsl:value-of>
-                        </ParallelProperTile>
+                        </ParallelProperTitle>
                     </xsl:for-each>
                     <!-- 副题名 -->
                     <SubordinateTitle>

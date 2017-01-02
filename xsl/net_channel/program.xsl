@@ -9,9 +9,9 @@
                         <xsl:value-of select="Name"/>
                     </ProperTitle>
                     <xsl:for-each select="Alias">
-                        <ParallelProperTile>
+                        <ParallelProperTitle>
                             <xsl:value-of select="current()"></xsl:value-of>
-                        </ParallelProperTile>
+                        </ParallelProperTitle>
                     </xsl:for-each>
                 </Title>
                 <Subject>

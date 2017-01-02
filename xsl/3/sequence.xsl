@@ -9,9 +9,9 @@
                     <xsl:value-of select="sAttribute[@strName='正题名']"></xsl:value-of>
                 </ProperTitle>
                 <xsl:for-each select="sAttribute[@strName='并列正题名']">
-                    <ParallelProperTile>
+                    <ParallelProperTitle>
                         <xsl:value-of select="current()"></xsl:value-of>
-                    </ParallelProperTile>
+                    </ParallelProperTitle>
                 </xsl:for-each>
                 <SeriesTitle>
                     <xsl:value-of select="sAttribute[@strName='系列题名']"></xsl:value-of>

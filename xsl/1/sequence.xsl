@@ -13,7 +13,7 @@
                     <xsl:value-of select="*/*/AttributeItem[ItemName='题名']/AttributeItem[ItemName='正题名']/Value"/>
                 </ProperTitle>
                 <xsl:for-each select="*/*/AttributeItem[ItemName='题名']/AttributeItem[ItemName='并列正题名']">
-                    <ParallelProperTile><xsl:value-of select="Value"/></ParallelProperTile>
+                    <ParallelProperTitle><xsl:value-of select="Value"/></ParallelProperTitle>
                 </xsl:for-each>
                 <SeriesTitle>
                     <xsl:value-of select="*/*/AttributeItem[ItemName='题名']/AttributeItem[ItemName='系列题名']/Value"/>

@@ -6,7 +6,7 @@
             <Title>
                 <ProperTitle> <xsl:value-of select="Title/ProperTitle"></xsl:value-of> </ProperTitle>
                 <xsl:for-each select="Title/ParallelProperTitle">
-                    <ParallelProperTile> <xsl:value-of select="current()"></xsl:value-of> </ParallelProperTile>
+                    <ParallelProperTitle> <xsl:value-of select="current()"></xsl:value-of> </ParallelProperTitle>
                 </xsl:for-each>
                 <SubordinateTitle> <xsl:value-of select="Title/SubordinateTitle"></xsl:value-of> </SubordinateTitle>
                 <xsl:for-each select="Title/AlternativeTitle">
