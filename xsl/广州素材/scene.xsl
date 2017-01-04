@@ -2,7 +2,7 @@
 
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
-    <xsl:template match="List">
+    <xsl:template match="/DCMCatalogueResult/List">
         <!-- 场景层 -->
         <Metadata>
 
@@ -46,10 +46,10 @@
                     <xsl:for-each select="AttributeItem[ItemName='格式']">
                         <Format>
                             <Duration>
-                                <xsl:value-of select="AttributeItem[ItemName='实长']/Value"/>
+                                <xsl:value-of select="AttributeItem[ItemName='实长']/Value * 0.05"/>
                             </Duration>
                             <StartingPoint>
-                                <xsl:value-of select="AttributeItem[ItemName='入点']/Value"/>
+                                <xsl:value-of select="AttributeItem[ItemName='入点']/Value * 0.05"/>
                             </StartingPoint>
                             <SubtitleForm>
                                 <xsl:value-of select="AttributeItem[ItemName='字幕形式']/Value"/>

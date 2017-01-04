@@ -46,10 +46,10 @@
                     <xsl:for-each select="AttributeItem[ItemName='格式']">
                         <Format>
                             <Duration>
-                                <xsl:value-of select="AttributeItem[ItemName='实长']/Value"/>
+                                <xsl:value-of select="AttributeItem[ItemName='实长']/Value * 0.04"/>
                             </Duration>
                             <StartingPoint>
-                                <xsl:value-of select="AttributeItem[ItemName='入点']/Value"/>
+                                <xsl:value-of select="AttributeItem[ItemName='入点']/Value * 0.04"/>
                             </StartingPoint>
                             <SubtitleForm>
                                 <xsl:value-of select="AttributeItem[ItemName='字幕形式']/Value"/>

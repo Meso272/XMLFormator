@@ -158,8 +158,8 @@
                 </xsl:for-each>
             </Type>
             <Format>
-                <Duration><xsl:value-of select="Format/Duration"></xsl:value-of></Duration>
-                <StartingPoint><xsl:value-of select="Format/StartingPoint"></xsl:value-of></StartingPoint>
+                <Duration><xsl:value-of select="Format/Duration * 0.04"></xsl:value-of></Duration>
+                <StartingPoint><xsl:value-of select="Format/StartingPoint * 0.04"></xsl:value-of></StartingPoint>
                 <Color><xsl:value-of select="Format/Color"></xsl:value-of></Color>
                 <SubtitleForm><xsl:value-of select="Format/SubtitleForm"></xsl:value-of></SubtitleForm>
                 <AudioChannelFormat><xsl:value-of select="Format/AudioChannelFormat"></xsl:value-of></AudioChannelFormat>

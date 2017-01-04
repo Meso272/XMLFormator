@@ -353,12 +353,12 @@
                     <!-- 实长 -->
                     <Duration>
                         <xsl:value-of
-                                select="*/TopUnit/Attributes/*/AttributeItem[ItemCode='Fromat']/AttributeItem[ItemCode='Duration']/Value"/>
+                                select="*/TopUnit/Attributes/*/AttributeItem[ItemCode='Fromat']/AttributeItem[ItemCode='Duration']/Value * 0.04"/>
                     </Duration>
                     <!-- 入点 -->
                     <StartingPoint>
                         <xsl:value-of
-                                select="*/TopUnit/Attributes/*/AttributeItem[ItemCode='Fromat']/AttributeItem[ItemCode='Starting Point']/Value"/>
+                                select="*/TopUnit/Attributes/*/AttributeItem[ItemCode='Fromat']/AttributeItem[ItemCode='Starting Point']/Value * 0.04"/>
                     </StartingPoint>
                     <!-- 色彩 -->
                     <Color>

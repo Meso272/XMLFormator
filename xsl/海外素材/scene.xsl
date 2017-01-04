@@ -2,11 +2,11 @@
 
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
-    <xsl:template match="ImportContents">
+    <xsl:template match="/DCMImportRequest/ImportContents">
         <!-- 场景层 -->
         <Metadata>
 
-            <xsl:for-each select="CatalogueMetaData/TopUnit/SubUnit/SubUnit/Attributes[TypeName='场景层']/Attributes">
+            <xsl:for-each select="CatalogueMetaData/TopUnit/SubUnit/Attributes[TypeName='场景层']/Attributes">
                 <Scene>
                     <!-- 题名 -->
                     <Title>
@@ -46,10 +46,10 @@
                     <xsl:for-each select="AttributeItem[ItemName='格式']">
                         <Format>
                             <Duration>
-                                <xsl:value-of select="AttributeItem[ItemName='实长']/Value"/>
+                                <xsl:value-of select="AttributeItem[ItemName='实长']/Value * 0.04"/>
                             </Duration>
                             <StartingPoint>
-                                <xsl:value-of select="AttributeItem[ItemName='入点']/Value"/>
+                                <xsl:value-of select="AttributeItem[ItemName='入点']/Value * 0.04"/>
                             </StartingPoint>
                             <SubtitleForm>
                                 <xsl:value-of select="AttributeItem[ItemName='字幕形式']/Value"/>

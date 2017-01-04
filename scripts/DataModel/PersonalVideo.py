@@ -13,7 +13,7 @@ class PersonalVideo:
         self.hours = hours
         self.minutes = minutes
         self.seconds = seconds
-        self.duration = int(duration) * 25 if duration else 0 # self.get_video_duration(video_path)
+        self.duration = duration if duration else 0 # self.get_video_duration(video_path)
         self.copyright = copyright
         self.mtype = mtype
         self.format = format

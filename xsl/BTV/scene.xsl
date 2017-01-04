@@ -46,10 +46,10 @@
                     <xsl:for-each select="AttributeItem[ItemCode='Format']">
                         <Format>
                             <Duration>
-                                <xsl:value-of select="AttributeItem[ItemCode='Duration']/Value"/>
+                                <xsl:value-of select="AttributeItem[ItemCode='Duration']/Value * 0.04"/>
                             </Duration>
                             <StartingPoint>
-                                <xsl:value-of select="AttributeItem[ItemCode='StartingPoint']/Value"/>
+                                <xsl:value-of select="AttributeItem[ItemCode='StartingPoint']/Value * 0.04"/>
                             </StartingPoint>
                             <SubtitleForm>
                                 <xsl:value-of select="AttributeItem[ItemCode='SubtitleForm']/Value"/>

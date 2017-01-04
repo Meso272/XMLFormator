@@ -67,10 +67,10 @@
                     <!-- 格式 -->
                     <Format>
                         <Duration>
-                            <xsl:value-of select="AttributeItem[ItemName='格式']/AttributeItem[ItemName='实长']/Value"/>
+                            <xsl:value-of select="AttributeItem[ItemName='格式']/AttributeItem[ItemName='实长']/Value * 0.04"/>
                         </Duration>
                         <StartingPoint>
-                            <xsl:value-of select="AttributeItem[ItemName='格式']/AttributeItem[ItemName='入点']/Value"/>
+                            <xsl:value-of select="AttributeItem[ItemName='格式']/AttributeItem[ItemName='入点']/Value * 0.04"/>
                         </StartingPoint>
                     </Format>
 

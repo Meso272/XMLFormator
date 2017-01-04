@@ -355,12 +355,12 @@
                     <!-- 实长 -->
                     <Duration>
                         <xsl:value-of
-                                select="*/TopUnit/Attributes/*/AttributeItem[ItemName='格式']/AttributeItem[ItemName='实长']/Value"/>
+                                select="*/TopUnit/Attributes/*/AttributeItem[ItemName='格式']/AttributeItem[ItemName='实长']/Value * 0.04"/>
                     </Duration>
                     <!-- 入点 -->
                     <StartingPoint>
                         <xsl:value-of
-                                select="*/TopUnit/Attributes/*/AttributeItem[ItemName='格式']/AttributeItem[ItemName='入点']/Value"/>
+                                select="*/TopUnit/Attributes/*/AttributeItem[ItemName='格式']/AttributeItem[ItemName='入点']/Value * 0.04"/>
                     </StartingPoint>
                     <!-- 色彩 -->
                     <Color>

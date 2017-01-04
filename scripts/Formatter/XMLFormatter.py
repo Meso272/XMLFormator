@@ -114,6 +114,10 @@ class XMLFormatter:
 
     @staticmethod
     def trim_long(time):
+        if time:
+            time = time.replace('年', '-')
+            time = time.replace('月', '-')
+            time = time.replace('日', '')
         try:
             dt = datetime.strptime(time, "%Y/%m/%d %H:%M:%S")
             return dt.isoformat(' ')
@@ -136,7 +140,7 @@ class XMLFormatter:
             return ''
         if time == "00:00:00":
             time = "0"
-        time = int(time) // 25
+        time = int(time)
         hours = time // 3600
         minutes = (time % 3600) // 60
         seconds = (time % 3600) % 60
