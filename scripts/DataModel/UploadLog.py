@@ -18,4 +18,4 @@ class Video:
         self.video_copyright = video_copyright
         self.material_id = material_id
         self.video_play_path = video_play_path
-        self.xml_trans_path = '/'.join(xml_trans_path.split('/')[:-1]) + str(uuid.uuid4()).replace('-', '')
+        self.xml_trans_path = '/'.join(xml_trans_path.split('/')[:-1]) + '/' + str(uuid.uuid4()).replace('-', '')

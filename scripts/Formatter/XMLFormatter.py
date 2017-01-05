@@ -140,7 +140,10 @@ class XMLFormatter:
             return ''
         if time == "00:00:00":
             time = "0"
-        time = int(time)
+        try:
+            time = int(float(time))
+        except :
+            time = 0
         hours = time // 3600
         minutes = (time % 3600) // 60
         seconds = (time % 3600) % 60
