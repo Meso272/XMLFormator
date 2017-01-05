@@ -39,29 +39,34 @@ class UploaderWorker:
         rev = ""
         parent_id = ""
         try:
+            layer = 0
             if file_class.startswith('Video'):
                 [couch_id, rev] = self.db_video.save(json_file)
                 parent_id = couch_id
             elif file_class.startswith('Program'):
                 [couch_id, rev] = self.db_program.save(json_file)
                 parent_id = self.get_id(json_string, "ParentID")
+                layer = 1
             elif file_class.startswith('Sequence'):
                 [couch_id, rev] = self.db_sequence.save(json_file)
                 parent_id = self.get_id(json_string, "ParentID")
+                layer = 2
             elif file_class.startswith('Scene'):
                 [couch_id, rev] = self.db_scene.save(json_file)
                 parent_id = self.get_id(json_string, "ParentID")
+                layer = 3
             elif file_class.startswith('Shot'):
                 [couch_id, rev] = self.db_shot.save(json_file)
                 parent_id = self.get_id(json_string, "ParentID")
-            self.update_sql(log_id, couch_id, parent_id, rev, material_id)
+                layer = 4
+            self.update_sql(log_id, couch_id, parent_id, rev, material_id, layer)
             return True
         except couchdb.http.ResourceConflict:
             logging.error("resource conflict. please check your video id")
             return False
 
-    def update_sql(self, log_id, couch_id, parent_id, rev, material_id):
-        self.insert_sql += "(%d, '%s', '%s', '%s', '%s')," % (log_id, couch_id, parent_id, rev, material_id)
+    def update_sql(self, log_id, couch_id, parent_id, rev, material_id, layer):
+        self.insert_sql += "(%d, '%s', '%s', '%s', '%s', %d)," % (log_id, couch_id, parent_id, rev, material_id, layer)
 
     def get_id(self, json_string, id_name):
         json_file = json.loads(json_string)
@@ -96,7 +101,7 @@ class UploaderWorker:
                 self.batch_import(path)
         self.insert_sql = self.insert_sql[:-1] + ';'
         self.adaptor.run_sql(self.insert_sql)
-        self.insert_sql = "insert into json_couch_ids (log_id, couch_id, parent_id, couch_rev, material_id) values"
+        self.insert_sql = "insert into json_couch_ids (log_id, couch_id, parent_id, couch_rev, material_id, layer) values"
         return 0
 
 
