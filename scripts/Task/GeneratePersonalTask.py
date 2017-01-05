@@ -1,5 +1,6 @@
 import os
 import logging
+import uuid
 from lxml import etree
 from ..DataSupplier.DataRepository import DataRepository
 from ..Utility.FileUtility import FileUtility
@@ -48,7 +49,7 @@ class GeneratePersonalTask:
             xml_string = self.generate_xml(material)
             xml_root = etree.fromstring(xml_string)
             xml_string = etree.tostring(xml_root, encoding='UTF-8', pretty_print=True, xml_declaration=True).decode('UTF-8')
-            xml_path = os.getcwd() + "/../personal_xml/" + material.title + '_' + str(material.duration) + '.xml'
+            xml_path = os.getcwd() + "/../personal_xml/" + str(uuid.uuid4()).replace('-', '') + '.xml'
             FileUtility().write_file(xml_path, xml_string)
 
             vendor_name = "Personal"
