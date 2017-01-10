@@ -40,8 +40,11 @@ class VideoAttribExtractor:
 
         self.thumbnail_path = self.thumbnail_folder + "/thumbnail_" + self.MD5 + ".jpeg"
         thumbnail_extractor = ThumbnailExtractor()
-        thumbnail_extractor.thumb_with_ffmpeg(infile=self.video_path, position=0.5, executable=None,
+        try:
+            thumbnail_extractor.thumb_with_ffmpeg(infile=self.video_path, position=0.5, executable=None,
                                              outfile=self.thumbnail_path)
+        except:
+            logging.error("thumbnail extraction failed for video : %s" % self.video_path)
         return self.thumbnail_path
 
     # 获得视频的关键帧，给定视频路径和视频关键帧的存放文件夹

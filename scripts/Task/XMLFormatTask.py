@@ -114,19 +114,25 @@ class XMLFormatTask:
             return None
         string_name_list = os.listdir(path)
         num_name_list = list()
+        name2format = dict()
+        img_postfix = ['jpg', 'jpeg', 'JPG']
         try:
             for string_name in string_name_list:
-                if string_name.endswith('jpg') or string_name.endswith('jpeg'):
+                if len(string_name.split('.')) > 1 and string_name.split('.')[1] in img_postfix:
                     num_name_list.append(int(string_name.split('.')[0]))
+                    name2format[string_name.split('.')[0]] = string_name.split('.')[1]
             num_name_list.sort()
             string_name_list.clear()
             for num_name in num_name_list:
-                string_name_list.append(str(num_name) + '.jpg')
+                if str(num_name) in name2format:
+                    string_name_list.append(str(num_name) + '.' + name2format[str(num_name)])
+                else:
+                    string_name_list.append(str(num_name) + '.jpg')
         except:
             logging.warning('can not decide thumbnail')
             string_name_list = os.listdir(path)
         for the_file in string_name_list:
             thumbnail_path = os.path.join(path, the_file)
-            if os.path.isfile(thumbnail_path) and (the_file.endswith(".jpg") or the_file.endswith(".jpeg")):
+            if os.path.isfile(thumbnail_path) and (len(the_file.split('.')) > 1 and the_file.split('.')[1] in img_postfix):
                 return thumbnail_path
         return None

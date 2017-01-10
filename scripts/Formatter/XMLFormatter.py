@@ -33,7 +33,12 @@ class XMLFormatter:
             logging.error("xml file: %s not exists" % self.xml_path)
             return 1
 
-        self.raw_xml = etree.tostring(etree.parse(self.xml_path), encoding='unicode')
+        try:
+            self.raw_xml = etree.tostring(etree.parse(self.xml_path), encoding='unicode')
+        except:
+            logging.error("xml file not supported: %s" % self.xml_path)
+            self.raw_xml = ''
+            return 3
 
         XSLFiles = glob.glob(self.xsl_path + "/*.xsl")
         if len(XSLFiles) == 0:

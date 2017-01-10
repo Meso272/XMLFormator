@@ -46,7 +46,7 @@
                 </Language>
                 <Format>
                     <Duration>
-                        <xsl:value-of select="Duration * 25"/>
+                        <xsl:value-of select="Duration"/>
                     </Duration>
                 </Format>
             </Program>

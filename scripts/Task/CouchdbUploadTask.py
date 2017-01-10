@@ -29,7 +29,7 @@ class UploaderWorker:
         self.folderPath = folder_path
         self.adaptor = AdaptorCenter().get_adaptor('upload_log')
         self.conf = ConfRepo()
-        self.insert_sql = "insert into json_couch_ids (log_id, couch_id, parent_id, couch_rev, material_id) values"
+        self.insert_sql = "insert into json_couch_ids (log_id, couch_id, parent_id, couch_rev, material_id, layer) values"
 
     def import_file(self, json_string, file_class):  # 将单个文件导入couchdb, filePath为文件路径
         json_file = json.loads(json_string)
@@ -39,26 +39,27 @@ class UploaderWorker:
         rev = ""
         parent_id = ""
         try:
-            layer = 0
+            layer = ''
             if file_class.startswith('Video'):
                 [couch_id, rev] = self.db_video.save(json_file)
                 parent_id = couch_id
+                layer = 'video'
             elif file_class.startswith('Program'):
                 [couch_id, rev] = self.db_program.save(json_file)
                 parent_id = self.get_id(json_string, "ParentID")
-                layer = 1
+                layer = 'program'
             elif file_class.startswith('Sequence'):
                 [couch_id, rev] = self.db_sequence.save(json_file)
                 parent_id = self.get_id(json_string, "ParentID")
-                layer = 2
+                layer = 'sequence'
             elif file_class.startswith('Scene'):
                 [couch_id, rev] = self.db_scene.save(json_file)
                 parent_id = self.get_id(json_string, "ParentID")
-                layer = 3
+                layer = 'scene'
             elif file_class.startswith('Shot'):
                 [couch_id, rev] = self.db_shot.save(json_file)
                 parent_id = self.get_id(json_string, "ParentID")
-                layer = 4
+                layer = 'shot'
             self.update_sql(log_id, couch_id, parent_id, rev, material_id, layer)
             return True
         except couchdb.http.ResourceConflict:
@@ -66,7 +67,7 @@ class UploaderWorker:
             return False
 
     def update_sql(self, log_id, couch_id, parent_id, rev, material_id, layer):
-        self.insert_sql += "(%d, '%s', '%s', '%s', '%s', %d)," % (log_id, couch_id, parent_id, rev, material_id, layer)
+        self.insert_sql += "(%d, '%s', '%s', '%s', '%s', '%s')," % (log_id, couch_id, parent_id, rev, material_id, layer)
 
     def get_id(self, json_string, id_name):
         json_file = json.loads(json_string)
