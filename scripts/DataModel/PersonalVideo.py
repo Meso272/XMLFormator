@@ -1,4 +1,5 @@
 import cv2
+import os
 
 
 class PersonalVideo:
@@ -14,7 +15,7 @@ class PersonalVideo:
         self.hours = hours
         self.minutes = minutes
         self.seconds = seconds
-        self.duration = duration if duration else 0 # self.get_video_duration(video_path)
+        self.duration = duration if duration else self.get_video_duration(video_path) # self.get_video_duration(video_path)
         self.copyright = copyright
         self.mtype = mtype
         self.format = format
@@ -28,6 +29,11 @@ class PersonalVideo:
 
     @staticmethod
     def get_video_duration(file_path):
-        cap = cv2.VideoCapture(file_path)
-        return int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
+        if not os.path.isfile(file_path):
+            return 0
+        try:
+            cap = cv2.VideoCapture(file_path)
+            return int(cap.get(cv2.CAP_PROP_FRAME_COUNT)) * 0.04
+        except:
+            return 0
 
